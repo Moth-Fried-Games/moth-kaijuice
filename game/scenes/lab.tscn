@@ -1,0 +1,6 @@
+[gd_scene load_steps=2 format=3 uid="uid://nwhhnvw1i5em"]
+
+[ext_resource type="Script" uid="uid://bxbnqdj7t7vp4" path="res://game/scenes/lab.gd" id="1_kxpmb"]
+
+[node name="Lab" type="Node2D"]
+script = ExtResource("1_kxpmb")
