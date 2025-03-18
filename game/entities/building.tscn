@@ -1,0 +1,29 @@
+[gd_scene load_steps=3 format=3 uid="uid://be5uepytrlu7a"]
+
+[ext_resource type="Script" uid="uid://dhi7bdsio3vk4" path="res://game/entities/building.gd" id="1_obrdy"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_qebow"]
+size = Vector2(128, 192)
+
+[node name="Building" type="Node2D"]
+script = ExtResource("1_obrdy")
+
+[node name="Visuals" type="Node2D" parent="."]
+
+[node name="Polygon2D" type="Polygon2D" parent="Visuals"]
+position = Vector2(-64, -192)
+color = Color(0, 1, 1, 1)
+polygon = PackedVector2Array(0, 0, 128, 0, 128, 192, 0, 192)
+
+[node name="Areas" type="Node2D" parent="."]
+
+[node name="BodyArea2D" type="Area2D" parent="Areas"]
+collision_layer = 2
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Areas/BodyArea2D"]
+position = Vector2(0, -96)
+shape = SubResource("RectangleShape2D_qebow")
+
+[node name="VisibleOnScreenNotifier2D" type="VisibleOnScreenNotifier2D" parent="."]
+position = Vector2(-1.90735e-06, -96)
+scale = Vector2(6.4, 9.6)

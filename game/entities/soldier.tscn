@@ -1,0 +1,29 @@
+[gd_scene load_steps=3 format=3 uid="uid://n4ofce51k43y"]
+
+[ext_resource type="Script" uid="uid://bgcxl1fgs75vp" path="res://game/entities/soldier.gd" id="1_n76dv"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_jmfjf"]
+size = Vector2(16, 32)
+
+[node name="Soldier" type="Node2D"]
+script = ExtResource("1_n76dv")
+
+[node name="Visuals" type="Node2D" parent="."]
+
+[node name="Polygon2D" type="Polygon2D" parent="Visuals"]
+position = Vector2(-8, -32)
+color = Color(1, 0, 0, 1)
+polygon = PackedVector2Array(0, 0, 16, 0, 16, 32, 0, 32)
+
+[node name="Areas" type="Node2D" parent="."]
+
+[node name="BodyArea2D" type="Area2D" parent="Areas"]
+collision_layer = 0
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Areas/BodyArea2D"]
+position = Vector2(0, -16)
+shape = SubResource("RectangleShape2D_jmfjf")
+
+[node name="VisibleOnScreenNotifier2D" type="VisibleOnScreenNotifier2D" parent="."]
+position = Vector2(-1.90735e-06, -16)
+scale = Vector2(0.8, 1.6)

@@ -94,4 +94,4 @@ func update_ui_volume(new_ui_volume: float) -> void:
 
 func update_mouse_sensitivity(new_mouse_sensitivity: float) -> void:
 	mouse_sensitivity = new_mouse_sensitivity
-	mouse_sensitivity = clampf(mouse_sensitivity,0.01,1)
+	mouse_sensitivity = clampf(mouse_sensitivity, 0.01, 1)

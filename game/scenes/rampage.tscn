@@ -135,10 +135,18 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 
-[node name="Stage" type="Node2D" parent="."]
+[node name="Spawns" type="Node2D" parent="."]
 
-[node name="Kaiju" parent="Stage" instance=ExtResource("2_23bft")]
-position = Vector2(128, 360)
+[node name="Kaiju" parent="." instance=ExtResource("2_23bft")]
+position = Vector2(200, 600)
+
+[node name="SpawnMarker2D" type="Marker2D" parent="."]
+position = Vector2(1480, 600)
 
 [node name="Camera2D" type="Camera2D" parent="."]
-position = Vector2(640, 360)
+position = Vector2(200, 360)
+limit_left = 0
+
+[node name="SpawnTimer" type="Timer" parent="."]
+wait_time = 0.5
+autostart = true

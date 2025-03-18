@@ -11,6 +11,8 @@ config_version=5
 [application]
 
 config/name="Moth Kaiju"
+config/tags=PackedStringArray("game")
+run/main_scene="uid://105nwecheuck"
 config/features=PackedStringArray("4.4", "Forward Plus")
 config/icon="res://icon.svg"
 
@@ -22,7 +24,7 @@ GameGlobals="*res://core/game_globals.gd"
 
 window/size/viewport_width=1280
 window/size/viewport_height=720
-window/stretch/mode="canvas_items"
+window/stretch/mode="viewport"
 
 [editor_plugins]
 
