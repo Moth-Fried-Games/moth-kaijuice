@@ -1,0 +1,66 @@
+[gd_scene load_steps=10 format=3 uid="uid://bwmaai1r1djm3"]
+
+[ext_resource type="Script" uid="uid://ch7y0c6ijpewe" path="res://game/entities/bullet.gd" id="1_16ab2"]
+
+[sub_resource type="Gradient" id="Gradient_dbdy6"]
+offsets = PackedFloat32Array(0, 0.9, 1)
+colors = PackedColorArray(1, 0, 0, 1, 1, 1, 0.235294, 1, 1, 1, 0, 0)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_16ab2"]
+gradient = SubResource("Gradient_dbdy6")
+width = 4
+height = 4
+fill = 1
+fill_from = Vector2(0.5, 0.5)
+
+[sub_resource type="Curve" id="Curve_wmjtj"]
+_data = [Vector2(0, 0.5), 0.0, 0.0, 0, 0, Vector2(1, 0), 0.0, 0.0, 0, 0]
+point_count = 2
+
+[sub_resource type="CurveTexture" id="CurveTexture_hpcea"]
+curve = SubResource("Curve_wmjtj")
+
+[sub_resource type="Curve" id="Curve_binx1"]
+_data = [Vector2(0, 1), 0.0, 0.0, 0, 0, Vector2(1, 0), 0.0, 0.0, 0, 0]
+point_count = 2
+
+[sub_resource type="CurveTexture" id="CurveTexture_2x3jn"]
+curve = SubResource("Curve_binx1")
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_mgqkv"]
+particle_flag_disable_z = true
+gravity = Vector3(0, 0, 0)
+scale_min = 5.33
+scale_max = 5.33
+scale_curve = SubResource("CurveTexture_2x3jn")
+alpha_curve = SubResource("CurveTexture_hpcea")
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_hkgle"]
+size = Vector2(16, 16)
+
+[node name="Bullet" type="Node2D"]
+script = ExtResource("1_16ab2")
+
+[node name="Visuals" type="Node2D" parent="."]
+
+[node name="GPUParticles2D" type="GPUParticles2D" parent="Visuals"]
+texture = SubResource("GradientTexture2D_16ab2")
+lifetime = 0.2
+fixed_fps = 0
+process_material = SubResource("ParticleProcessMaterial_mgqkv")
+
+[node name="Sprite2D" type="Sprite2D" parent="Visuals"]
+scale = Vector2(5.333, 5.333)
+texture = SubResource("GradientTexture2D_16ab2")
+
+[node name="Areas" type="Node2D" parent="."]
+
+[node name="Area2D" type="Area2D" parent="Areas"]
+collision_layer = 0
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Areas/Area2D"]
+shape = SubResource("RectangleShape2D_hkgle")
+
+[node name="VisibleOnScreenNotifier2D" type="VisibleOnScreenNotifier2D" parent="."]
+position = Vector2(-4.76837e-07, 0)
+scale = Vector2(1.6, 1.6)

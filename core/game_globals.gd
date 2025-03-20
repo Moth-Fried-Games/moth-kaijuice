@@ -9,6 +9,8 @@ var audio_manager: AudioManager = AudioManager.new()
 
 var loading_screen: bool = false
 
+var bullet_resource: Resource = preload("res://game/entities/bullet.tscn")
+var big_bullet_resource: Resource = preload("res://game/entities/big_bullet.tscn")
 
 func _ready() -> void:
 	process_mode = Node.PROCESS_MODE_ALWAYS

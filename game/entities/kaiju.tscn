@@ -3,10 +3,10 @@
 [ext_resource type="Script" uid="uid://dcap4is2nmi5c" path="res://game/entities/kaiju.gd" id="1_jvakf"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_jvakf"]
-size = Vector2(128, 192)
+size = Vector2(128, 232)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_5m4ok"]
-size = Vector2(128, 320)
+size = Vector2(32, 232)
 
 [node name="Kaiju" type="Node2D"]
 script = ExtResource("1_jvakf")
@@ -16,7 +16,15 @@ script = ExtResource("1_jvakf")
 [node name="Polygon2D" type="Polygon2D" parent="Visuals"]
 position = Vector2(-64, -192)
 color = Color(0, 1, 0, 1)
-polygon = PackedVector2Array(0, 0, 128, 0, 128, 192, 0, 192)
+polygon = PackedVector2Array(0, 0, 128, 0, 128, 232, 0, 232)
+
+[node name="Polygon2D2" type="Polygon2D" parent="Visuals"]
+position = Vector2(56, 0)
+polygon = PackedVector2Array(0, -192, 24, -72, 0, 40)
+
+[node name="Polygon2D3" type="Polygon2D" parent="Visuals"]
+color = Color(0.5, 0.5, 0.5, 1)
+polygon = PackedVector2Array(0, -192, -64, -88, 0, 0, 64, -96)
 
 [node name="Areas" type="Node2D" parent="."]
 
@@ -24,7 +32,7 @@ polygon = PackedVector2Array(0, 0, 128, 0, 128, 192, 0, 192)
 collision_mask = 2
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Areas/BodyArea2D"]
-position = Vector2(0, -96)
+position = Vector2(0, -76)
 shape = SubResource("RectangleShape2D_jvakf")
 
 [node name="AttackArea2D" type="Area2D" parent="Areas"]
@@ -33,5 +41,8 @@ collision_layer = 0
 collision_mask = 2
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Areas/AttackArea2D"]
-position = Vector2(0, -96)
+position = Vector2(0, -76)
 shape = SubResource("RectangleShape2D_5m4ok")
+
+[node name="AttackTimer" type="Timer" parent="."]
+one_shot = true

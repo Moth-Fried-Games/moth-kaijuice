@@ -2,13 +2,16 @@ extends Node2D
 
 @onready var visible_on_screen_notifier_2d: VisibleOnScreenNotifier2D = $VisibleOnScreenNotifier2D
 
+var health: float = 400
 var kill_timer: float = 0
 var entered_screen: bool = false
 var dead: bool = false
 
+
 func _ready() -> void:
 	if not is_in_group("building"):
 		add_to_group("building")
+
 
 func _physics_process(delta: float) -> void:
 	if visible_on_screen_notifier_2d.is_on_screen():
@@ -22,3 +25,11 @@ func _physics_process(delta: float) -> void:
 
 	if kill_timer > 5:
 		queue_free()
+
+
+func damage(total_damage: float) -> void:
+	health -= total_damage
+	if health <= 0:
+		if not dead:
+			dead = true
+			queue_free()

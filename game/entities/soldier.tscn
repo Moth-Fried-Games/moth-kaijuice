@@ -27,3 +27,9 @@ shape = SubResource("RectangleShape2D_jmfjf")
 [node name="VisibleOnScreenNotifier2D" type="VisibleOnScreenNotifier2D" parent="."]
 position = Vector2(-1.90735e-06, -16)
 scale = Vector2(0.8, 1.6)
+
+[node name="BulletMarker2D" type="Marker2D" parent="."]
+position = Vector2(-8, -24)
+
+[node name="BulletTimer" type="Timer" parent="."]
+one_shot = true

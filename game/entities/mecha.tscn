@@ -1,0 +1,55 @@
+[gd_scene load_steps=4 format=3 uid="uid://r61q7coqxan2"]
+
+[ext_resource type="Script" uid="uid://c48fhl3b6u4y0" path="res://game/entities/mecha.gd" id="1_4xkmi"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_4c62m"]
+size = Vector2(128, 192)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_4xkmi"]
+size = Vector2(32, 232)
+
+[node name="Mecha" type="Node2D"]
+script = ExtResource("1_4xkmi")
+
+[node name="Visuals" type="Node2D" parent="."]
+
+[node name="Polygon2D" type="Polygon2D" parent="Visuals"]
+position = Vector2(-64, -192)
+color = Color(1, 0, 0, 1)
+polygon = PackedVector2Array(0, 0, 128, 0, 128, 192, 0, 192)
+
+[node name="Polygon2D2" type="Polygon2D" parent="Visuals"]
+position = Vector2(-80, -24)
+color = Color(1, 1, 0, 1)
+polygon = PackedVector2Array(32, -192, 0, -72, 32, 48)
+
+[node name="Areas" type="Node2D" parent="."]
+
+[node name="BodyArea2D" type="Area2D" parent="Areas"]
+collision_layer = 2
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Areas/BodyArea2D"]
+position = Vector2(0, -96)
+shape = SubResource("RectangleShape2D_4c62m")
+
+[node name="AttackArea2D" type="Area2D" parent="Areas"]
+position = Vector2(64, 0)
+collision_layer = 0
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Areas/AttackArea2D"]
+position = Vector2(-128, -96)
+shape = SubResource("RectangleShape2D_4xkmi")
+
+[node name="VisibleOnScreenNotifier2D" type="VisibleOnScreenNotifier2D" parent="."]
+position = Vector2(0, -96)
+scale = Vector2(6.4, 9.6)
+
+[node name="BulletMarker2D" type="Marker2D" parent="."]
+position = Vector2(-64, -152)
+
+[node name="BulletTimer" type="Timer" parent="."]
+wait_time = 5.0
+one_shot = true
+
+[node name="AttackTimer" type="Timer" parent="."]
+one_shot = true

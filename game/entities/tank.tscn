@@ -1,0 +1,36 @@
+[gd_scene load_steps=3 format=3 uid="uid://gpeb3qwsy86c"]
+
+[ext_resource type="Script" uid="uid://dhxo5m8ac6t01" path="res://game/entities/tank.gd" id="1_heb30"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_k1oem"]
+size = Vector2(64, 40)
+
+[node name="Tank" type="Node2D"]
+script = ExtResource("1_heb30")
+
+[node name="Visuals" type="Node2D" parent="."]
+
+[node name="Polygon2D" type="Polygon2D" parent="Visuals"]
+position = Vector2(-8, -32)
+color = Color(1, 0, 0, 1)
+polygon = PackedVector2Array(-24, -8, 40, -8, 40, 32, -24, 32)
+
+[node name="Areas" type="Node2D" parent="."]
+
+[node name="BodyArea2D" type="Area2D" parent="Areas"]
+collision_layer = 2
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Areas/BodyArea2D"]
+position = Vector2(0, -20)
+shape = SubResource("RectangleShape2D_k1oem")
+
+[node name="VisibleOnScreenNotifier2D" type="VisibleOnScreenNotifier2D" parent="."]
+position = Vector2(2.86102e-06, -20)
+scale = Vector2(3.2, 2)
+
+[node name="BulletMarker2D" type="Marker2D" parent="."]
+position = Vector2(-32, -32)
+
+[node name="BulletTimer" type="Timer" parent="."]
+wait_time = 2.0
+one_shot = true
