@@ -1,19 +1,82 @@
-[gd_scene load_steps=3 format=3 uid="uid://n4ofce51k43y"]
+[gd_scene load_steps=7 format=3 uid="uid://n4ofce51k43y"]
 
 [ext_resource type="Script" uid="uid://bgcxl1fgs75vp" path="res://game/entities/soldier.gd" id="1_n76dv"]
+[ext_resource type="Texture2D" uid="uid://bcsj2by7b0f8p" path="res://assets/textures/city/npcs/mothkaiju_npc_soldier.png" id="2_2gdtm"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_jmfjf"]
-size = Vector2(16, 32)
+size = Vector2(32, 48)
+
+[sub_resource type="Animation" id="Animation_2gdtm"]
+resource_name = "die"
+length = 0.25
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Visuals/Sprite2D:scale")
+tracks/0/interp = 2
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.25),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector2(5.33333, 5.33333), Vector2(5.333, 0.667)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Visuals/Sprite2D:position")
+tracks/1/interp = 2
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.25),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector2(0, -26.667), Vector2(0, -3.333)]
+}
+
+[sub_resource type="Animation" id="Animation_2kjlg"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Visuals/Sprite2D:scale")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(5.33333, 5.33333)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Visuals/Sprite2D:position")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(0, -26.667)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_4tk00"]
+_data = {
+&"RESET": SubResource("Animation_2kjlg"),
+&"die": SubResource("Animation_2gdtm")
+}
 
 [node name="Soldier" type="Node2D"]
+y_sort_enabled = true
 script = ExtResource("1_n76dv")
 
 [node name="Visuals" type="Node2D" parent="."]
 
-[node name="Polygon2D" type="Polygon2D" parent="Visuals"]
-position = Vector2(-8, -32)
-color = Color(1, 0, 0, 1)
-polygon = PackedVector2Array(0, 0, 16, 0, 16, 32, 0, 32)
+[node name="Sprite2D" type="Sprite2D" parent="Visuals"]
+position = Vector2(0, -26.667)
+scale = Vector2(5.33333, 5.33333)
+texture = ExtResource("2_2gdtm")
 
 [node name="Areas" type="Node2D" parent="."]
 
@@ -21,15 +84,20 @@ polygon = PackedVector2Array(0, 0, 16, 0, 16, 32, 0, 32)
 collision_layer = 0
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Areas/BodyArea2D"]
-position = Vector2(0, -16)
+position = Vector2(0, -24)
 shape = SubResource("RectangleShape2D_jmfjf")
 
 [node name="VisibleOnScreenNotifier2D" type="VisibleOnScreenNotifier2D" parent="."]
-position = Vector2(-1.90735e-06, -16)
-scale = Vector2(0.8, 1.6)
+position = Vector2(9.53674e-07, -28)
+scale = Vector2(2.4, 2.8)
 
 [node name="BulletMarker2D" type="Marker2D" parent="."]
-position = Vector2(-8, -24)
+position = Vector2(-24, -56)
 
 [node name="BulletTimer" type="Timer" parent="."]
 one_shot = true
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+libraries = {
+&"": SubResource("AnimationLibrary_4tk00")
+}

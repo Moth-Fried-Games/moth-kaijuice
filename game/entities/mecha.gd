@@ -14,11 +14,12 @@ var entered_screen: bool = false
 var dead: bool = false
 var kaiju: Node2D = null
 var melee_damage: float = 10
+var cost: float = 150000
 
 
 func _ready() -> void:
-	if not is_in_group("bigenemy"):
-		add_to_group("bigenemy")
+	if not is_in_group("mecha"):
+		add_to_group("mecha")
 	polygon_2d_2.modulate.a = 0
 
 
@@ -33,7 +34,7 @@ func _physics_process(delta: float) -> void:
 			entered_screen = true
 		if kill_timer != 0:
 			kill_timer = 0
-		if attack_timer.is_stopped():
+		if attack_timer.is_stopped() and not dead and not kaiju.shrunk:
 			if attack_area_2d.has_overlapping_areas():
 				var attack_targets: Array[Node2D] = []
 				for area in attack_area_2d.get_overlapping_areas():
@@ -41,7 +42,7 @@ func _physics_process(delta: float) -> void:
 					attack_targets.append(attack_target)
 				attack(attack_targets)
 			else:
-				if bullet_timer.is_stopped():
+				if bullet_timer.is_stopped() and not dead and not kaiju.shrunk:
 					bullet_timer.start(5)
 					shoot()
 	else:
@@ -54,10 +55,17 @@ func _physics_process(delta: float) -> void:
 
 func damage(total_damage: float) -> void:
 	health -= total_damage
+	health = clampf(health, 0, INF)
 	if health <= 0:
 		if not dead:
 			dead = true
-			queue_free()
+			die()
+
+
+func die() -> void:
+	kaiju.charge(3)
+	kaiju.loot(cost)
+	queue_free()
 
 
 func shoot() -> void:

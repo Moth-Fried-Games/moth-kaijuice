@@ -9,6 +9,7 @@ size = Vector2(128, 192)
 size = Vector2(32, 232)
 
 [node name="Mecha" type="Node2D"]
+y_sort_enabled = true
 script = ExtResource("1_4xkmi")
 
 [node name="Visuals" type="Node2D" parent="."]

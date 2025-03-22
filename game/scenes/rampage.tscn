@@ -1,58 +1,64 @@
-[gd_scene load_steps=17 format=3 uid="uid://105nwecheuck"]
+[gd_scene load_steps=25 format=3 uid="uid://105nwecheuck"]
 
 [ext_resource type="Script" uid="uid://bpd8mhh5munwn" path="res://game/scenes/rampage.gd" id="1_ytodt"]
 [ext_resource type="PackedScene" uid="uid://c5fr7cw22ijci" path="res://game/entities/kaiju.tscn" id="2_23bft"]
-[ext_resource type="Texture2D" uid="uid://6r78lixx4mct" path="res://assets/textures/background/mothkaiju_bg_0.png" id="2_36rtc"]
-[ext_resource type="Texture2D" uid="uid://7p64yka22630" path="res://assets/textures/background/mothkaiju_bg_1.png" id="3_xx8o7"]
-[ext_resource type="Texture2D" uid="uid://dybo0yx4s7ipg" path="res://assets/textures/background/mothkaiju_bg_2.png" id="4_2pbl7"]
-[ext_resource type="Texture2D" uid="uid://cleboju4pi34r" path="res://assets/textures/background/mothkaiju_bg_3.png" id="5_52e63"]
+[ext_resource type="Texture2D" uid="uid://6r78lixx4mct" path="res://assets/textures/city/background/mothkaiju_bg_0.png" id="2_36rtc"]
+[ext_resource type="Texture2D" uid="uid://dcqfsx0p1wysx" path="res://assets/textures/city/ui/mothkaiju_ui_hp.png" id="2_h54rw"]
+[ext_resource type="Texture2D" uid="uid://cv5ac4i4vn4wr" path="res://assets/textures/city/ui/mothkaiju_ui_hp_fill.png" id="3_i8j7i"]
+[ext_resource type="Texture2D" uid="uid://7p64yka22630" path="res://assets/textures/city/background/mothkaiju_bg_1.png" id="3_xx8o7"]
+[ext_resource type="Texture2D" uid="uid://dybo0yx4s7ipg" path="res://assets/textures/city/background/mothkaiju_bg_2.png" id="4_2pbl7"]
+[ext_resource type="Texture2D" uid="uid://dy0dtwj7c2ye5" path="res://assets/textures/city/ui/mothkaiju_ui_sp.png" id="4_gg0dw"]
+[ext_resource type="Texture2D" uid="uid://cleboju4pi34r" path="res://assets/textures/city/background/mothkaiju_bg_3.png" id="5_52e63"]
+[ext_resource type="Texture2D" uid="uid://8cib5q1i0dmb" path="res://assets/textures/city/ui/mothkaiju_ui_sp_arrow.png" id="5_ag40j"]
+[ext_resource type="Texture2D" uid="uid://cu04gk6fviexp" path="res://assets/textures/city/ui/mothkaiju_ui_sp_button.png" id="6_i8j7i"]
+[ext_resource type="Texture2D" uid="uid://c21k7l66wio8x" path="res://assets/textures/city/ui/mothkaiju_ui_timer.png" id="7_behiq"]
+[ext_resource type="Texture2D" uid="uid://mh50j45x386r" path="res://assets/textures/city/ui/mothkaiju_ui_timer_1.png" id="8_5qys1"]
+[ext_resource type="Texture2D" uid="uid://cyt5y6puwjrne" path="res://assets/textures/city/ui/mothkaiju_ui_timer_2.png" id="9_g3ybk"]
+[ext_resource type="Texture2D" uid="uid://dq6opdvxfnsg0" path="res://assets/textures/city/ui/mothkaiju_ui_timer_3.png" id="10_enccm"]
+[ext_resource type="Texture2D" uid="uid://bqx4d8qaqqwly" path="res://assets/textures/city/ui/mothkaiju_ui_timer_4.png" id="11_2u5t1"]
+[ext_resource type="Texture2D" uid="uid://bxr1qkcyod4c4" path="res://assets/textures/city/ui/mothkaiju_ui_timer_5.png" id="12_p8l0g"]
 
-[sub_resource type="Gradient" id="Gradient_xrffg"]
-offsets = PackedFloat32Array(0)
-colors = PackedColorArray(0, 0, 0, 1)
+[sub_resource type="AtlasTexture" id="AtlasTexture_gg0dw"]
+atlas = ExtResource("6_i8j7i")
+region = Rect2(0, 0, 31, 31)
 
-[sub_resource type="GradientTexture2D" id="GradientTexture2D_rakxm"]
-gradient = SubResource("Gradient_xrffg")
-width = 32
-height = 600
+[sub_resource type="AtlasTexture" id="AtlasTexture_ag40j"]
+atlas = ExtResource("6_i8j7i")
+region = Rect2(31, 0, 31, 31)
 
-[sub_resource type="Gradient" id="Gradient_6hawv"]
-offsets = PackedFloat32Array(0)
-colors = PackedColorArray(0, 1, 0, 1)
+[sub_resource type="AtlasTexture" id="AtlasTexture_timnt"]
+atlas = ExtResource("6_i8j7i")
+region = Rect2(62, 0, 31, 31)
 
-[sub_resource type="GradientTexture2D" id="GradientTexture2D_wqpmp"]
-gradient = SubResource("Gradient_6hawv")
-width = 32
-height = 600
-fill_to = Vector2(0, 1)
+[sub_resource type="AtlasTexture" id="AtlasTexture_b06np"]
+atlas = ExtResource("6_i8j7i")
+region = Rect2(93, 0, 31, 31)
 
-[sub_resource type="Gradient" id="Gradient_77yyp"]
-offsets = PackedFloat32Array(0)
-colors = PackedColorArray(1, 0, 0, 1)
+[sub_resource type="SpriteFrames" id="SpriteFrames_tukwx"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_gg0dw")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ag40j")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_timnt")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_b06np")
+}],
+"loop": true,
+"name": &"default",
+"speed": 12.0
+}]
 
-[sub_resource type="GradientTexture2D" id="GradientTexture2D_wkail"]
-gradient = SubResource("Gradient_77yyp")
-width = 32
-height = 600
-fill_to = Vector2(0, 1)
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_xx8o7"]
+size = Vector2(208, 80)
 
-[sub_resource type="Gradient" id="Gradient_yh5wo"]
-offsets = PackedFloat32Array(0)
-colors = PackedColorArray(0, 0, 0, 1)
-
-[sub_resource type="GradientTexture2D" id="GradientTexture2D_k1wfx"]
-gradient = SubResource("Gradient_yh5wo")
-width = 800
-height = 32
-
-[sub_resource type="Gradient" id="Gradient_4yfpi"]
-offsets = PackedFloat32Array(0)
-colors = PackedColorArray(0.432, 0, 0.72, 1)
-
-[sub_resource type="GradientTexture2D" id="GradientTexture2D_xm0av"]
-gradient = SubResource("Gradient_4yfpi")
-width = 800
-height = 32
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_36rtc"]
+size = Vector2(400, 176)
 
 [node name="Rampage" type="Node2D"]
 script = ExtResource("1_ytodt")
@@ -67,72 +73,114 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 
-[node name="DamagesRichTextLabel" type="RichTextLabel" parent="UI/Game"]
-visible = false
+[node name="HealthMarginContainer" type="Control" parent="UI/Game"]
 layout_mode = 1
-anchors_preset = 10
-anchor_right = 1.0
-offset_top = 20.0
-offset_bottom = 99.0
-grow_horizontal = 2
-theme_override_font_sizes/normal_font_size = 32
-bbcode_enabled = true
-text = "[center]$0
-[font_size=24]Damages"
-fit_content = true
-
-[node name="HealthTextureProgressBar" type="TextureProgressBar" parent="UI/Game"]
-visible = false
-layout_mode = 1
-anchors_preset = 4
-anchor_top = 0.5
-anchor_bottom = 0.5
+anchors_preset = 0
 offset_left = 20.0
-offset_top = -300.0
-offset_right = 52.0
-offset_bottom = 300.0
-grow_vertical = 2
-value = 100.0
-fill_mode = 3
-texture_under = SubResource("GradientTexture2D_rakxm")
-texture_progress = SubResource("GradientTexture2D_wqpmp")
+offset_top = 20.0
+offset_right = 20.0
+offset_bottom = 20.0
 
-[node name="DangerTextureProgressBar" type="TextureProgressBar" parent="UI/Game"]
-visible = false
+[node name="HealthBGSprite2D" type="Sprite2D" parent="UI/Game/HealthMarginContainer"]
+scale = Vector2(5.33333, 5.33333)
+texture = ExtResource("2_h54rw")
+centered = false
+
+[node name="HealthMaskSprite2D" type="Sprite2D" parent="UI/Game/HealthMarginContainer"]
+clip_children = 1
+scale = Vector2(5.33333, 5.33333)
+texture = ExtResource("3_i8j7i")
+centered = false
+
+[node name="HealthBarSprite2D" type="Sprite2D" parent="UI/Game/HealthMarginContainer/HealthMaskSprite2D"]
+texture = ExtResource("3_i8j7i")
+centered = false
+
+[node name="SpecialMarginContainer" type="Control" parent="UI/Game"]
 layout_mode = 1
-anchors_preset = 6
+anchors_preset = 0
+offset_left = 120.0
+offset_top = 20.0
+offset_right = 120.0
+offset_bottom = 20.0
+
+[node name="SpecialBGSprite2D" type="Sprite2D" parent="UI/Game/SpecialMarginContainer"]
+scale = Vector2(5.33333, 5.33333)
+texture = ExtResource("4_gg0dw")
+centered = false
+
+[node name="Polygon2D" type="Polygon2D" parent="UI/Game/SpecialMarginContainer"]
+clip_children = 1
+position = Vector2(0, 3.333)
+polygon = PackedVector2Array(24, 10, 144, 10, 144, 82, 24, 82)
+
+[node name="SpecialBarSprite2D" type="Sprite2D" parent="UI/Game/SpecialMarginContainer/Polygon2D"]
+position = Vector2(82.667, 76.667)
+scale = Vector2(5.33333, 5.33333)
+texture = ExtResource("5_ag40j")
+offset = Vector2(0, -4.5)
+
+[node name="BeamMarginContainer" type="Control" parent="UI/Game"]
+layout_mode = 1
+anchors_preset = 0
+offset_left = 120.0
+offset_top = 140.0
+offset_right = 120.0
+offset_bottom = 140.0
+
+[node name="BeamAnimatedSprite2D" type="AnimatedSprite2D" parent="UI/Game/BeamMarginContainer"]
+scale = Vector2(5.33333, 5.33333)
+sprite_frames = SubResource("SpriteFrames_tukwx")
+autoplay = "default"
+frame_progress = 0.26679
+centered = false
+
+[node name="AlertMarginContainer" type="Control" parent="UI/Game"]
+layout_mode = 1
+anchors_preset = 1
 anchor_left = 1.0
-anchor_top = 0.5
 anchor_right = 1.0
-anchor_bottom = 0.5
-offset_left = -52.0
-offset_top = -300.0
+offset_left = -20.0
+offset_top = 20.0
 offset_right = -20.0
-offset_bottom = 300.0
+offset_bottom = 20.0
 grow_horizontal = 0
-grow_vertical = 2
-value = 100.0
-fill_mode = 3
-texture_under = SubResource("GradientTexture2D_rakxm")
-texture_progress = SubResource("GradientTexture2D_wkail")
 
-[node name="SpecialTextureProgressBar" type="TextureProgressBar" parent="UI/Game"]
-visible = false
-layout_mode = 1
-anchors_preset = 7
-anchor_left = 0.5
-anchor_top = 1.0
-anchor_right = 0.5
-anchor_bottom = 1.0
-offset_left = -400.0
-offset_top = -52.0
-offset_right = 400.0
-offset_bottom = -20.0
-grow_horizontal = 2
-grow_vertical = 0
-value = 100.0
-texture_under = SubResource("GradientTexture2D_k1wfx")
-texture_progress = SubResource("GradientTexture2D_xm0av")
+[node name="AlertBGSprite2D" type="Sprite2D" parent="UI/Game/AlertMarginContainer"]
+scale = Vector2(5.33333, 5.33333)
+texture = ExtResource("7_behiq")
+centered = false
+offset = Vector2(-31, 0)
+
+[node name="AlertLEDSprite2D1" type="Sprite2D" parent="UI/Game/AlertMarginContainer"]
+scale = Vector2(5.33333, 5.33333)
+texture = ExtResource("8_5qys1")
+centered = false
+offset = Vector2(-31, 0)
+
+[node name="AlertLEDSprite2D2" type="Sprite2D" parent="UI/Game/AlertMarginContainer"]
+scale = Vector2(5.33333, 5.33333)
+texture = ExtResource("9_g3ybk")
+centered = false
+offset = Vector2(-31, 0)
+
+[node name="AlertLEDSprite2D3" type="Sprite2D" parent="UI/Game/AlertMarginContainer"]
+scale = Vector2(5.33333, 5.33333)
+texture = ExtResource("10_enccm")
+centered = false
+offset = Vector2(-31, 0)
+
+[node name="AlertLEDSprite2D4" type="Sprite2D" parent="UI/Game/AlertMarginContainer"]
+scale = Vector2(5.33333, 5.33333)
+texture = ExtResource("11_2u5t1")
+centered = false
+offset = Vector2(-31, 0)
+
+[node name="AlertLEDSprite2D5" type="Sprite2D" parent="UI/Game/AlertMarginContainer"]
+scale = Vector2(5.33333, 5.33333)
+texture = ExtResource("12_p8l0g")
+centered = false
+offset = Vector2(-31, 0)
 
 [node name="Results" type="Control" parent="UI"]
 visible = false
@@ -150,56 +198,71 @@ z_index = -2
 repeat_size = Vector2(1280, 0)
 repeat_times = 4
 
-[node name="TextureRect0" type="TextureRect" parent="Background/BackParallax2D"]
-offset_right = 1280.0
-offset_bottom = 720.0
+[node name="Sprite3D0" type="Sprite2D" parent="Background/BackParallax2D"]
+scale = Vector2(5.33333, 5.33333)
 texture = ExtResource("2_36rtc")
-expand_mode = 1
+centered = false
 
-[node name="TextureRect1" type="TextureRect" parent="Background/BackParallax2D"]
-offset_right = 1280.0
-offset_bottom = 720.0
+[node name="Sprite3D1" type="Sprite2D" parent="Background/BackParallax2D"]
+scale = Vector2(5.33333, 5.33333)
 texture = ExtResource("3_xx8o7")
-expand_mode = 1
+centered = false
 
 [node name="MiddleParallax2D" type="Parallax2D" parent="Background"]
 repeat_size = Vector2(1280, 0)
 repeat_times = 4
 
-[node name="TextureRect2" type="TextureRect" parent="Background/MiddleParallax2D"]
-offset_right = 1280.0
-offset_bottom = 720.0
+[node name="Sprite3D2" type="Sprite2D" parent="Background/MiddleParallax2D"]
+scale = Vector2(5.33333, 5.33333)
 texture = ExtResource("4_2pbl7")
-expand_mode = 1
+centered = false
 
 [node name="FrontParallax2D" type="Parallax2D" parent="Background"]
 repeat_size = Vector2(1280, 0)
 repeat_times = 4
 
-[node name="TextureRect3" type="TextureRect" parent="Background/FrontParallax2D"]
-offset_right = 1280.0
-offset_bottom = 720.0
+[node name="Sprite3D3" type="Sprite2D" parent="Background/FrontParallax2D"]
+scale = Vector2(5.33333, 5.33333)
 texture = ExtResource("5_52e63")
-expand_mode = 1
+centered = false
 
 [node name="Spawns" type="Node2D" parent="."]
+y_sort_enabled = true
 
 [node name="Kaiju" parent="." instance=ExtResource("2_23bft")]
-position = Vector2(200, 656)
+position = Vector2(232, 656)
 
 [node name="SpawnMarker2D" type="Marker2D" parent="."]
 position = Vector2(1480, 680)
 
+[node name="SpawnArea2D" type="Area2D" parent="SpawnMarker2D"]
+position = Vector2(0, 40)
+collision_layer = 0
+collision_mask = 2
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="SpawnMarker2D/SpawnArea2D"]
+position = Vector2(0, -40)
+shape = SubResource("RectangleShape2D_xx8o7")
+
 [node name="BuildingMarker2D" type="Marker2D" parent="."]
-position = Vector2(1480, 632)
+position = Vector2(1480, 629.333)
+
+[node name="BuildingArea2D" type="Area2D" parent="BuildingMarker2D"]
+collision_layer = 0
+collision_mask = 4
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="BuildingMarker2D/BuildingArea2D"]
+position = Vector2(0, -88)
+shape = SubResource("RectangleShape2D_36rtc")
 
 [node name="Camera2D" type="Camera2D" parent="."]
 position = Vector2(200, 360)
+process_callback = 0
 limit_left = 0
 
 [node name="SpawnTimer" type="Timer" parent="."]
-autostart = true
 
 [node name="BuildingTimer" type="Timer" parent="."]
-wait_time = 2.0
-autostart = true
+
+[node name="BlinkTimer" type="Timer" parent="."]
+one_shot = true

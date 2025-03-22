@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://7p64yka22630"
-path="res://.godot/imported/mothkaiju_bg_1.png-cfa8f0fbe9aa82143270c08345a59223.ctex"
+uid="uid://yiyy2ogb8574"
+path="res://.godot/imported/mothkaiju_ui_lab_chemistry_vial.png-73a276cf7fcef1c7e8dc98730541de26.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/textures/background/mothkaiju_bg_1.png"
-dest_files=["res://.godot/imported/mothkaiju_bg_1.png-cfa8f0fbe9aa82143270c08345a59223.ctex"]
+source_file="res://assets/textures/lab/chemistry/mothkaiju_ui_lab_chemistry_vial.png"
+dest_files=["res://.godot/imported/mothkaiju_ui_lab_chemistry_vial.png-73a276cf7fcef1c7e8dc98730541de26.ctex"]
 
 [params]
 

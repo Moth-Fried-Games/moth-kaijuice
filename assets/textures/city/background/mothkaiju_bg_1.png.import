@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://xyyjjl22xinl"
-path="res://.godot/imported/mothkaiju_bg.png-9e3a08009e222703fec0f6251bda51a2.ctex"
+uid="uid://7p64yka22630"
+path="res://.godot/imported/mothkaiju_bg_1.png-e9fa3dee03e38e2d7d670799765c7f20.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/textures/background/mothkaiju_bg.png"
-dest_files=["res://.godot/imported/mothkaiju_bg.png-9e3a08009e222703fec0f6251bda51a2.ctex"]
+source_file="res://assets/textures/city/background/mothkaiju_bg_1.png"
+dest_files=["res://.godot/imported/mothkaiju_bg_1.png-e9fa3dee03e38e2d7d670799765c7f20.ctex"]
 
 [params]
 

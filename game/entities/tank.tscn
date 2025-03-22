@@ -1,19 +1,74 @@
-[gd_scene load_steps=3 format=3 uid="uid://gpeb3qwsy86c"]
+[gd_scene load_steps=11 format=3 uid="uid://gpeb3qwsy86c"]
 
 [ext_resource type="Script" uid="uid://dhxo5m8ac6t01" path="res://game/entities/tank.gd" id="1_heb30"]
+[ext_resource type="Texture2D" uid="uid://djbm40yulu1g3" path="res://assets/textures/city/npcs/mothkaiju_npc_tank.png" id="2_i8kr7"]
+
+[sub_resource type="Gradient" id="Gradient_i8kr7"]
+offsets = PackedFloat32Array(0, 0.3, 0.8, 1)
+colors = PackedColorArray(1, 1, 0, 1, 1, 0.294118, 0, 1, 0.25, 0.25, 0.25, 1, 0.75, 0.75, 0.75, 0)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_quovu"]
+gradient = SubResource("Gradient_i8kr7")
+width = 16
+height = 16
+fill = 1
+fill_from = Vector2(0.5, 0.5)
+fill_to = Vector2(0.5, 0)
+
+[sub_resource type="Curve" id="Curve_vgwjd"]
+_data = [Vector2(0, 1), 0.0, 0.0, 0, 0, Vector2(0.495146, 1), 0.0, 0.0, 0, 0, Vector2(1, 0), 0.0, 0.0, 0, 0]
+point_count = 3
+
+[sub_resource type="CurveTexture" id="CurveTexture_w0syy"]
+curve = SubResource("Curve_vgwjd")
+
+[sub_resource type="Curve" id="Curve_cpbyu"]
+_limits = [0.0, 2.0, 0.0, 1.0]
+_data = [Vector2(0, 1), 0.0, 0.0, 0, 0, Vector2(1, 2), 0.0, 0.0, 0, 0]
+point_count = 2
+
+[sub_resource type="CurveTexture" id="CurveTexture_iregq"]
+curve = SubResource("Curve_cpbyu")
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_wub6b"]
+particle_flag_disable_z = true
+emission_shape = 1
+emission_sphere_radius = 100.0
+direction = Vector3(0, -1, 0)
+initial_velocity_min = 300.0
+initial_velocity_max = 300.0
+angular_velocity_min = -720.0
+angular_velocity_max = 720.0
+gravity = Vector3(0, 0, 0)
+scale_min = 5.33
+scale_max = 5.33
+scale_curve = SubResource("CurveTexture_iregq")
+alpha_curve = SubResource("CurveTexture_w0syy")
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_k1oem"]
-size = Vector2(64, 40)
+size = Vector2(168, 80)
 
 [node name="Tank" type="Node2D"]
 script = ExtResource("1_heb30")
 
 [node name="Visuals" type="Node2D" parent="."]
 
-[node name="Polygon2D" type="Polygon2D" parent="Visuals"]
-position = Vector2(-8, -32)
-color = Color(1, 0, 0, 1)
-polygon = PackedVector2Array(-24, -8, 40, -8, 40, 32, -24, 32)
+[node name="Sprite2D" type="Sprite2D" parent="Visuals"]
+y_sort_enabled = true
+position = Vector2(0, -50.667)
+scale = Vector2(5.33333, 5.33333)
+texture = ExtResource("2_i8kr7")
+
+[node name="GPUParticles2D" type="GPUParticles2D" parent="Visuals"]
+z_index = 1
+position = Vector2(-4, -40)
+emitting = false
+amount = 50
+texture = SubResource("GradientTexture2D_quovu")
+one_shot = true
+explosiveness = 1.0
+fixed_fps = 0
+process_material = SubResource("ParticleProcessMaterial_wub6b")
 
 [node name="Areas" type="Node2D" parent="."]
 
@@ -21,15 +76,15 @@ polygon = PackedVector2Array(-24, -8, 40, -8, 40, 32, -24, 32)
 collision_layer = 2
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Areas/BodyArea2D"]
-position = Vector2(0, -20)
+position = Vector2(-4, -40)
 shape = SubResource("RectangleShape2D_k1oem")
 
 [node name="VisibleOnScreenNotifier2D" type="VisibleOnScreenNotifier2D" parent="."]
-position = Vector2(2.86102e-06, -20)
-scale = Vector2(3.2, 2)
+position = Vector2(0, -56)
+scale = Vector2(10.4, 5.6)
 
 [node name="BulletMarker2D" type="Marker2D" parent="."]
-position = Vector2(-32, -32)
+position = Vector2(-96, -104)
 
 [node name="BulletTimer" type="Timer" parent="."]
 wait_time = 2.0

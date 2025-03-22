@@ -2,9 +2,9 @@ extends Node2D
 
 @onready var body_area_2d: Area2D = $Areas/BodyArea2D
 @onready var attack_area_2d: Area2D = $Areas/AttackArea2D
-@onready var attack_timer: Timer = $AttackTimer
+@onready var animated_sprite_2d: AnimatedSprite2D = $Visuals/AnimatedSprite2D
+@onready var animation_player: AnimationPlayer = $AnimationPlayer
 
-@onready var polygon_2d_2: Polygon2D = $Visuals/Polygon2D2
 @onready var polygon_2d_3: Polygon2D = $Visuals/Polygon2D3
 
 var base_health: float = 1000
@@ -23,37 +23,50 @@ var current_special_cooldown: float = base_special_cooldown
 
 var game_scene: Node2D = null
 var walking: bool = false
+var punching: bool = false
+var kicking: bool = false
+var grown: bool = false
+var shrunk: bool = false
 
 
 func _ready() -> void:
 	if not is_in_group("kaiju"):
 		add_to_group("kaiju")
-	polygon_2d_2.modulate.a = 0
 	polygon_2d_3.modulate.a = 0
 
 
 func _process(delta: float) -> void:
-	if polygon_2d_2.modulate.a > 0:
-		polygon_2d_2.modulate.a -= 2 * delta
 	if polygon_2d_3.modulate.a > 0:
 		polygon_2d_3.modulate.a -= 2 * delta
 
 
-func _physics_process(delta: float) -> void:
-	if attack_timer.is_stopped():
+func _physics_process(_delta: float) -> void:
+	if grown and not shrunk and not animation_player.is_playing():
 		if attack_area_2d.has_overlapping_areas():
-			var attack_targets: Array[Node2D] = []
-			for area in attack_area_2d.get_overlapping_areas():
-				var attack_target = area.get_parent().get_parent()
-				attack_targets.append(attack_target)
-			attack(attack_targets)
+			if animated_sprite_2d.animation == "walk" or not animated_sprite_2d.is_playing():
+				var attack_targets: Array[Node2D] = []
+				for area in attack_area_2d.get_overlapping_areas():
+					var attack_target = area.get_parent().get_parent()
+					if attack_target.is_in_group("tank"):
+						kicking = true
+					attack_targets.append(attack_target)
+				attack(attack_targets)
 		else:
 			walk()
+
+	if not grown:
+		animation_player.play("start")
+		await animation_player.animation_finished
+		animation_player.play("grow")
+		await animation_player.animation_finished
+		grown = true
 
 
 func walk() -> void:
 	if not walking:
 		walking = true
+		animated_sprite_2d.play("walk")
+		animated_sprite_2d.speed_scale = (current_move_speed / base_move_speed)
 	if is_instance_valid(game_scene):
 		game_scene.move_forward(current_move_speed)
 
@@ -61,9 +74,20 @@ func walk() -> void:
 func attack(attack_targets: Array[Node2D]) -> void:
 	if walking:
 		walking = false
-	if attack_timer.is_stopped():
-		attack_timer.start(current_attack_speed)
-		polygon_2d_2.modulate.a = 1
+	if kicking:
+		kicking = false
+		animated_sprite_2d.play("kick")
+		animated_sprite_2d.speed_scale = current_attack_speed
+	else:
+		if punching:
+			punching = !punching
+			animated_sprite_2d.play("punch_left")
+			animated_sprite_2d.speed_scale = current_attack_speed
+		else:
+			punching = !punching
+			animated_sprite_2d.play("punch_right")
+			animated_sprite_2d.speed_scale = current_attack_speed
+	await animated_sprite_2d.animation_finished
 	for attack_target in attack_targets:
 		attack_target.damage(current_damage)
 
@@ -77,3 +101,20 @@ func damage(total_damage: float) -> void:
 		guard()
 	else:
 		current_health -= total_damage
+		current_health = clampf(current_health, 0, INF)
+		if current_health <= 0:
+			if not shrunk:
+				shrunk = true
+				animation_player.play("shrink")
+				body_area_2d.queue_free()
+				attack_area_2d.queue_free()
+
+
+func charge(value: float) -> void:
+	game_scene.special_charge += value
+	game_scene.special_charge = clampf(game_scene.special_charge, 0, current_special_cooldown)
+
+
+func loot(value: float) -> void:
+	game_scene.damage_pay += value
+	game_scene.alert_level += (value / 1000)

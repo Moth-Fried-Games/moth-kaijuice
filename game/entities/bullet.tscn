@@ -39,6 +39,7 @@ alpha_curve = SubResource("CurveTexture_hpcea")
 size = Vector2(16, 16)
 
 [node name="Bullet" type="Node2D"]
+z_index = 1
 script = ExtResource("1_4s82r")
 
 [node name="Visuals" type="Node2D" parent="."]
@@ -50,7 +51,7 @@ fixed_fps = 0
 process_material = SubResource("ParticleProcessMaterial_mgqkv")
 
 [node name="Sprite2D" type="Sprite2D" parent="Visuals"]
-scale = Vector2(5.333, 5.333)
+scale = Vector2(5.33333, 5.33333)
 texture = SubResource("GradientTexture2D_4s82r")
 
 [node name="Areas" type="Node2D" parent="."]

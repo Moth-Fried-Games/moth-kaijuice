@@ -1,30 +1,297 @@
-[gd_scene load_steps=3 format=3 uid="uid://be5uepytrlu7a"]
+[gd_scene load_steps=19 format=3 uid="uid://be5uepytrlu7a"]
 
 [ext_resource type="Script" uid="uid://dhi7bdsio3vk4" path="res://game/entities/building.gd" id="1_obrdy"]
+[ext_resource type="Texture2D" uid="uid://dmh8techykui6" path="res://assets/textures/city/buildings/mothkaiju_bldg_b.png" id="2_qcps4"]
+[ext_resource type="Texture2D" uid="uid://cqailjrb1e2ut" path="res://assets/textures/city/buildings/mothkaiju_bldg_d.png" id="3_615jc"]
+[ext_resource type="Texture2D" uid="uid://dbbwwyqut3isy" path="res://assets/textures/city/buildings/mothkaiju_bldg_m.png" id="3_644xh"]
+[ext_resource type="Texture2D" uid="uid://bls0g2ro8eqkp" path="res://assets/textures/city/buildings/mothkaiju_bldg_s.png" id="4_lsuq8"]
+
+[sub_resource type="Gradient" id="Gradient_644xh"]
+offsets = PackedFloat32Array(0, 0.9, 1)
+colors = PackedColorArray(0.75, 0.75, 0.75, 1, 0.25, 0.25, 0.25, 1, 0, 0, 0, 0)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_lsuq8"]
+gradient = SubResource("Gradient_644xh")
+width = 16
+height = 16
+fill = 1
+fill_from = Vector2(0.5, 0.5)
+fill_to = Vector2(0.5, 0)
+
+[sub_resource type="Curve" id="Curve_82nvo"]
+_data = [Vector2(0, 1), 0.0, 0.0, 0, 0, Vector2(0.495146, 1), 0.0, 0.0, 0, 0, Vector2(1, 0), 0.0, 0.0, 0, 0]
+point_count = 3
+
+[sub_resource type="CurveTexture" id="CurveTexture_lsuq8"]
+curve = SubResource("Curve_82nvo")
+
+[sub_resource type="Curve" id="Curve_tjhhr"]
+_limits = [0.0, 2.0, 0.0, 1.0]
+_data = [Vector2(0, 1), 0.0, 0.0, 0, 0, Vector2(1, 2), 0.0, 0.0, 0, 0]
+point_count = 2
+
+[sub_resource type="CurveTexture" id="CurveTexture_82nvo"]
+curve = SubResource("Curve_tjhhr")
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_luydv"]
+particle_flag_disable_z = true
+emission_shape = 3
+emission_box_extents = Vector3(200, 1, 1)
+direction = Vector3(0, -1, 0)
+initial_velocity_min = 300.0
+initial_velocity_max = 300.0
+angular_velocity_min = -720.0
+angular_velocity_max = 720.0
+gravity = Vector3(0, 0, 0)
+scale_min = 5.33
+scale_max = 5.33
+scale_curve = SubResource("CurveTexture_82nvo")
+alpha_curve = SubResource("CurveTexture_lsuq8")
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_qebow"]
-size = Vector2(128, 192)
+size = Vector2(256, 640)
+
+[sub_resource type="Animation" id="Animation_kh4cn"]
+resource_name = "big_dead"
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Visuals/Polygon2D/BigSprite2D:position")
+tracks/0/interp = 2
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 1),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector2(0, -309.333), Vector2(0, 309.333)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Visuals/GPUParticles2D:emitting")
+tracks/1/interp = 0
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 1),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": [true, false]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("Visuals/Polygon2D/DeadSprite2D:visible")
+tracks/2/interp = 0
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0, 1),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": [false, true]
+}
+
+[sub_resource type="Animation" id="Animation_5y014"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Visuals/GPUParticles2D:emitting")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [false]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Visuals/Polygon2D/DeadSprite2D:visible")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [false]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("Visuals/Polygon2D/BigSprite2D:position")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(0, -309.333)]
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("Visuals/Polygon2D/MiddleSprite2D:position")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(0, -288)]
+}
+tracks/4/type = "value"
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/path = NodePath("Visuals/Polygon2D/SmallSprite2D:position")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(0, -173.333)]
+}
+
+[sub_resource type="Animation" id="Animation_d0lvr"]
+resource_name = "middle_dead"
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Visuals/Polygon2D/MiddleSprite2D:position")
+tracks/0/interp = 2
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 1),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector2(0, -288), Vector2(0, 288)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Visuals/GPUParticles2D:emitting")
+tracks/1/interp = 0
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 1),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": [true, false]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("Visuals/Polygon2D/DeadSprite2D:visible")
+tracks/2/interp = 0
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0, 1),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": [false, true]
+}
+
+[sub_resource type="Animation" id="Animation_644xh"]
+resource_name = "small_dead"
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Visuals/Polygon2D/SmallSprite2D:position")
+tracks/0/interp = 2
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 1),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector2(0, -173.333), Vector2(0, 173.333)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Visuals/GPUParticles2D:emitting")
+tracks/1/interp = 0
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 1),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": [true, false]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("Visuals/Polygon2D/DeadSprite2D:visible")
+tracks/2/interp = 0
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0, 1),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": [false, true]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_gr24n"]
+_data = {
+&"RESET": SubResource("Animation_5y014"),
+&"big_dead": SubResource("Animation_kh4cn"),
+&"middle_dead": SubResource("Animation_d0lvr"),
+&"small_dead": SubResource("Animation_644xh")
+}
 
 [node name="Building" type="Node2D"]
+z_index = -1
 script = ExtResource("1_obrdy")
 
 [node name="Visuals" type="Node2D" parent="."]
 
 [node name="Polygon2D" type="Polygon2D" parent="Visuals"]
-z_index = -1
-position = Vector2(-64, -192)
-color = Color(0, 1, 1, 1)
-polygon = PackedVector2Array(0, 0, 128, 0, 128, 192, 0, 192)
+clip_children = 1
+polygon = PackedVector2Array(-192, 0, 128, 0, 128, -640, -192, -640)
+
+[node name="BigSprite2D" type="Sprite2D" parent="Visuals/Polygon2D"]
+position = Vector2(0, -309.333)
+scale = Vector2(5.33333, 5.33333)
+texture = ExtResource("2_qcps4")
+
+[node name="MiddleSprite2D" type="Sprite2D" parent="Visuals/Polygon2D"]
+position = Vector2(0, -288)
+scale = Vector2(5.33333, 5.33333)
+texture = ExtResource("3_644xh")
+
+[node name="SmallSprite2D" type="Sprite2D" parent="Visuals/Polygon2D"]
+position = Vector2(0, -173.333)
+scale = Vector2(5.33333, 5.33333)
+texture = ExtResource("4_lsuq8")
+
+[node name="DeadSprite2D" type="Sprite2D" parent="Visuals/Polygon2D"]
+visible = false
+position = Vector2(-29.333, -104)
+scale = Vector2(5.33333, 5.33333)
+texture = ExtResource("3_615jc")
+
+[node name="GPUParticles2D" type="GPUParticles2D" parent="Visuals"]
+z_index = 1
+emitting = false
+amount = 100
+texture = SubResource("GradientTexture2D_lsuq8")
+fixed_fps = 0
+process_material = SubResource("ParticleProcessMaterial_luydv")
 
 [node name="Areas" type="Node2D" parent="."]
 
 [node name="BodyArea2D" type="Area2D" parent="Areas"]
-collision_layer = 2
+collision_layer = 4
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Areas/BodyArea2D"]
-position = Vector2(0, -96)
+position = Vector2(0, -320)
 shape = SubResource("RectangleShape2D_qebow")
 
 [node name="VisibleOnScreenNotifier2D" type="VisibleOnScreenNotifier2D" parent="."]
-position = Vector2(-1.90735e-06, -96)
-scale = Vector2(6.4, 9.6)
+position = Vector2(-32, -320)
+scale = Vector2(16, 32)
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+libraries = {
+&"": SubResource("AnimationLibrary_gr24n")
+}

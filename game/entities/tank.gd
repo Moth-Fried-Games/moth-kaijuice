@@ -4,17 +4,19 @@ extends Node2D
 @onready var body_area_2d: Area2D = $Areas/BodyArea2D
 @onready var bullet_marker_2d: Marker2D = $BulletMarker2D
 @onready var bullet_timer: Timer = $BulletTimer
+@onready var gpu_particles_2d: GPUParticles2D = $Visuals/GPUParticles2D
+@onready var sprite_2d: Sprite2D = $Visuals/Sprite2D
 
 var health: float = 200
 var kill_timer: float = 0
 var entered_screen: bool = false
 var dead: bool = false
 var kaiju: Node2D = null
-
+var cost: float = 5000
 
 func _ready() -> void:
-	if not is_in_group("bigenemy"):
-		add_to_group("bigenemy")
+	if not is_in_group("tank"):
+		add_to_group("tank")
 
 
 func _physics_process(delta: float) -> void:
@@ -23,7 +25,7 @@ func _physics_process(delta: float) -> void:
 			entered_screen = true
 		if kill_timer != 0:
 			kill_timer = 0
-		if bullet_timer.is_stopped():
+		if bullet_timer.is_stopped() and not dead and not kaiju.shrunk:
 			bullet_timer.start(GameGlobals.rng.randf_range(2, 3))
 			shoot()
 	else:
@@ -36,10 +38,19 @@ func _physics_process(delta: float) -> void:
 
 func damage(total_damage: float) -> void:
 	health -= total_damage
+	health = clampf(health,0,INF)
 	if health <= 0:
 		if not dead:
 			dead = true
-			queue_free()
+			die()
+
+
+func die() -> void:
+	kaiju.charge(2)
+	kaiju.loot(cost)
+	body_area_2d.queue_free()
+	gpu_particles_2d.emitting = true
+	sprite_2d.visible = false
 
 
 func shoot() -> void:
