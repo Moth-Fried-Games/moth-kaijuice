@@ -5,6 +5,7 @@ var soldier_resource: Resource = preload("res://game/entities/soldier.tscn")
 var tank_resource: Resource = preload("res://game/entities/tank.tscn")
 var mecha_resource: Resource = preload("res://game/entities/mecha.tscn")
 
+@onready var money_rich_text_label: RichTextLabel = $UI/Game/MoneyRichTextLabel
 @onready
 var health_bar_sprite_2d: Sprite2D = $UI/Game/HealthMarginContainer/HealthMaskSprite2D/HealthBarSprite2D
 @onready
