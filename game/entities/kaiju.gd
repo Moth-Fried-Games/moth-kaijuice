@@ -4,6 +4,7 @@ extends Node2D
 @onready var attack_area_2d: Area2D = $Areas/AttackArea2D
 @onready var animated_sprite_2d: AnimatedSprite2D = $Visuals/AnimatedSprite2D
 @onready var animation_player: AnimationPlayer = $AnimationPlayer
+@onready var beam_animation_player: AnimationPlayer = $BeamAnimationPlayer
 
 @onready var polygon_2d_3: Polygon2D = $Visuals/Polygon2D3
 
@@ -27,12 +28,16 @@ var punching: bool = false
 var kicking: bool = false
 var grown: bool = false
 var shrunk: bool = false
+var shooting: bool = false
+var discharging: bool = false
 
 
 func _ready() -> void:
 	if not is_in_group("kaiju"):
 		add_to_group("kaiju")
 	polygon_2d_3.modulate.a = 0
+	animated_sprite_2d.play("idle")
+	
 
 
 func _process(delta: float) -> void:
@@ -41,26 +46,55 @@ func _process(delta: float) -> void:
 
 
 func _physics_process(_delta: float) -> void:
-	if grown and not shrunk and not animation_player.is_playing():
-		if attack_area_2d.has_overlapping_areas():
-			if animated_sprite_2d.animation == "walk" or not animated_sprite_2d.is_playing():
-				var attack_targets: Array[Node2D] = []
-				for area in attack_area_2d.get_overlapping_areas():
-					var attack_target = area.get_parent().get_parent()
-					if attack_target.is_in_group("tank"):
-						kicking = true
-					attack_targets.append(attack_target)
-				attack(attack_targets)
-		else:
-			walk()
-
+	if grown and not shrunk and not shooting and not discharging and not animation_player.is_playing():
+		if is_instance_valid(attack_area_2d):
+			if attack_area_2d.has_overlapping_areas():
+				if animated_sprite_2d.animation == "walk" or not animated_sprite_2d.is_playing():
+					var attack_targets: Array[Node2D] = []
+					for area in attack_area_2d.get_overlapping_areas():
+						var attack_target = area.get_parent().get_parent()
+						if attack_target.is_in_group("tank"):
+							kicking = true
+						attack_targets.append(attack_target)
+					await attack(attack_targets)
+			else:
+				walk()
+	
+	if grown and shooting:
+		shooting = false
+		await beam()
+		
+	
 	if not grown:
-		animation_player.play("start")
-		await animation_player.animation_finished
-		animation_player.play("grow")
-		await animation_player.animation_finished
 		grown = true
+		await grow()
+		
 
+func grow() -> void:
+	animation_player.play("start")
+	await animation_player.animation_finished
+	animation_player.play("grow")
+	await animation_player.animation_finished
+
+func beam() -> void:
+	if walking:
+		walking = false
+	discharging = true
+	animated_sprite_2d.speed_scale = 1
+	animated_sprite_2d.play("beam_start")
+	await animated_sprite_2d.animation_finished
+	game_scene.beam()
+	animated_sprite_2d.play("beam_loop")
+	beam_animation_player.play("grow")
+	await beam_animation_player.animation_finished
+	await get_tree().create_timer(1).timeout
+	beam_animation_player.play("shrink")
+	await beam_animation_player.animation_finished
+	animated_sprite_2d.play("beam_end")
+	await animated_sprite_2d.animation_finished
+	animated_sprite_2d.play("idle")
+	discharging = false
+	
 
 func walk() -> void:
 	if not walking:
@@ -99,12 +133,15 @@ func guard() -> void:
 func damage(total_damage: float) -> void:
 	if GameGlobals.rng.randf_range(0, 1) < current_guard_rate:
 		guard()
+	elif shooting or discharging:
+		guard()
 	else:
 		current_health -= total_damage
 		current_health = clampf(current_health, 0, INF)
 		if current_health <= 0:
 			if not shrunk:
 				shrunk = true
+				animated_sprite_2d.play("idle")
 				animation_player.play("shrink")
 				body_area_2d.queue_free()
 				attack_area_2d.queue_free()

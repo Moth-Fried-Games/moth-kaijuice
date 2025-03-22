@@ -45,6 +45,13 @@ func _ready() -> void:
 			health = 300
 			cost = 10000
 
+func _process(_delta: float) -> void:
+	if small_sprite_2d.modulate != Color.WHITE:
+		await get_tree().create_timer(0.05).timeout
+		small_sprite_2d.modulate = Color.WHITE
+		middle_sprite_2d.modulate = Color.WHITE
+		big_sprite_2d.modulate = Color.WHITE
+	
 
 func _physics_process(delta: float) -> void:
 	if visible_on_screen_notifier_2d.is_on_screen():
@@ -64,23 +71,27 @@ func damage(total_damage: float) -> void:
 	health -= total_damage
 	health = clampf(health, 0, INF)
 	if health <= 0:
-		if not dead:
-			dead = true
-			die()
+		die()
+	small_sprite_2d.modulate = Color(2,2,2,1)
+	middle_sprite_2d.modulate = Color(2,2,2,1)
+	big_sprite_2d.modulate = Color(2,2,2,1)
+	
 
 
 func die() -> void:
-	body_area_2d.queue_free()
-	match size:
-		1:
-			kaiju.charge(1)
-			kaiju.loot(cost)
-			animation_player.play("small_dead")
-		2:
-			kaiju.charge(2)
-			kaiju.loot(cost)
-			animation_player.play("middle_dead")
-		3:
-			kaiju.charge(3)
-			kaiju.loot(cost)
-			animation_player.play("big_dead")
+	if not dead:
+		dead = true
+		body_area_2d.queue_free()
+		match size:
+			1:
+				kaiju.charge(1)
+				kaiju.loot(cost)
+				animation_player.play("small_dead")
+			2:
+				kaiju.charge(2)
+				kaiju.loot(cost)
+				animation_player.play("middle_dead")
+			3:
+				kaiju.charge(3)
+				kaiju.loot(cost)
+				animation_player.play("big_dead")

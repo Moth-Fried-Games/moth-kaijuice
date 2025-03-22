@@ -5,6 +5,7 @@ var soldier_resource: Resource = preload("res://game/entities/soldier.tscn")
 var tank_resource: Resource = preload("res://game/entities/tank.tscn")
 var mecha_resource: Resource = preload("res://game/entities/mecha.tscn")
 
+@onready var white_color_rect: ColorRect = $UI/Game/WhiteColorRect
 @onready var money_rich_text_label: RichTextLabel = $UI/Game/MoneyRichTextLabel
 @onready
 var health_bar_sprite_2d: Sprite2D = $UI/Game/HealthMarginContainer/HealthMaskSprite2D/HealthBarSprite2D
@@ -12,6 +13,7 @@ var health_bar_sprite_2d: Sprite2D = $UI/Game/HealthMarginContainer/HealthMaskSp
 var special_bar_sprite_2d: Sprite2D = $UI/Game/SpecialMarginContainer/Polygon2D/SpecialBarSprite2D
 @onready
 var beam_animated_sprite_2d: AnimatedSprite2D = $UI/Game/BeamMarginContainer/BeamAnimatedSprite2D
+@onready var beam_button: Button = $UI/Game/BeamMarginContainer/BeamButton
 @onready var alert_led_sprite_2d_1: Sprite2D = $UI/Game/AlertMarginContainer/AlertLEDSprite2D1
 @onready var alert_led_sprite_2d_2: Sprite2D = $UI/Game/AlertMarginContainer/AlertLEDSprite2D2
 @onready var alert_led_sprite_2d_3: Sprite2D = $UI/Game/AlertMarginContainer/AlertLEDSprite2D3
@@ -44,17 +46,24 @@ var enemy_spawn: bool = false
 
 
 func _ready() -> void:
+	white_color_rect.modulate.a = 0
 	spawn_timer.timeout.connect(_on_spawn_timer_timeout)
 	building_timer.timeout.connect(_on_building_timer_timeout)
+	beam_button.pressed.connect(_on_beam_button_pressed)
 	kaiju.game_scene = self
 	max_health = kaiju.current_health
 
 
-func _process(_delta: float) -> void:
+func _process(delta: float) -> void:
+	if white_color_rect.modulate.a > 0:
+		white_color_rect.modulate.a -= 2 * delta
+	update_money()
 	update_health()
 	update_special()
 	update_alert()
 
+func update_money() -> void:
+	money_rich_text_label.text = str("[center]$",int(damage_pay))
 
 func update_health() -> void:
 	var health_percentage: float = kaiju.current_health / max_health
@@ -68,8 +77,10 @@ func update_special() -> void:
 	special_bar_sprite_2d.rotation_degrees = special_rotation
 	if special_percentage >= 1:
 		beam_animated_sprite_2d.visible = true
+		beam_button.disabled = false
 	else:
 		beam_animated_sprite_2d.visible = false
+		beam_button.disabled = true
 
 
 func update_alert() -> void:
@@ -162,8 +173,18 @@ func move_forward(move_speed: float) -> void:
 	front_parallax_2d.scroll_offset.x -= move_speed * get_physics_process_delta_time()
 	for child in spawns_node.get_children():
 		if is_instance_valid(child):
-			child.global_position.x -= move_speed * get_physics_process_delta_time()
+			if not child.is_in_group("kaiju"):
+				child.global_position.x -= move_speed * get_physics_process_delta_time()
 
+func beam() -> void:
+	white_color_rect.modulate.a = 1
+	var tween = get_tree().create_tween()
+	tween.tween_property(self, "special_charge",0,1)
+	for child in spawns_node.get_children():
+		if is_instance_valid(child):
+			if not child.is_in_group("bullet") and not child.is_in_group("kaiju"):
+				if not child.dead:
+					child.die()
 
 func spawn_building() -> void:
 	var building_instance = building_resource.instantiate()
@@ -221,3 +242,8 @@ func _on_building_timer_timeout() -> void:
 	if kaiju.walking and building_spawn:
 		if GameGlobals.rng.randf_range(0, 1) >= 0.33:
 			spawn_building()
+
+func _on_beam_button_pressed() -> void:
+	if not kaiju.shooting and not kaiju.discharging:
+		kaiju.shooting = true
+		

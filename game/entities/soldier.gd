@@ -39,22 +39,20 @@ func _physics_process(delta: float) -> void:
 			for area in body_area_2d.get_overlapping_areas():
 				var hit_target = area.get_parent().get_parent()
 				if hit_target.is_in_group("kaiju"):
-					if not dead:
-						dead = true
-						die()
+					die()
 
 
 func damage(_total_damage: float) -> void:
-	if not dead:
-		dead = true
-		die()
+	die()
 
 
 func die() -> void:
-	kaiju.charge(1)
-	kaiju.loot(cost)
-	body_area_2d.queue_free()
-	animation_player.play("die")
+	if not dead:
+		dead = true
+		kaiju.charge(1)
+		kaiju.loot(cost)
+		body_area_2d.queue_free()
+		animation_player.play("die")
 
 
 func shoot() -> void:

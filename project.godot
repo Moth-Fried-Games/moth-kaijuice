@@ -10,7 +10,7 @@ config_version=5
 
 [application]
 
-config/name="Moth Kaiju"
+config/name="Moth Kaijuice"
 config/tags=PackedStringArray("game")
 run/main_scene="uid://105nwecheuck"
 config/features=PackedStringArray("4.4", "Forward Plus")

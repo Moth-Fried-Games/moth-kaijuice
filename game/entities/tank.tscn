@@ -19,7 +19,7 @@ fill_to = Vector2(0.5, 0)
 _data = [Vector2(0, 1), 0.0, 0.0, 0, 0, Vector2(0.495146, 1), 0.0, 0.0, 0, 0, Vector2(1, 0), 0.0, 0.0, 0, 0]
 point_count = 3
 
-[sub_resource type="CurveTexture" id="CurveTexture_w0syy"]
+[sub_resource type="CurveTexture" id="CurveTexture_quovu"]
 curve = SubResource("Curve_vgwjd")
 
 [sub_resource type="Curve" id="Curve_cpbyu"]
@@ -27,7 +27,7 @@ _limits = [0.0, 2.0, 0.0, 1.0]
 _data = [Vector2(0, 1), 0.0, 0.0, 0, 0, Vector2(1, 2), 0.0, 0.0, 0, 0]
 point_count = 2
 
-[sub_resource type="CurveTexture" id="CurveTexture_iregq"]
+[sub_resource type="CurveTexture" id="CurveTexture_vgwjd"]
 curve = SubResource("Curve_cpbyu")
 
 [sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_wub6b"]
@@ -42,8 +42,8 @@ angular_velocity_max = 720.0
 gravity = Vector3(0, 0, 0)
 scale_min = 5.33
 scale_max = 5.33
-scale_curve = SubResource("CurveTexture_iregq")
-alpha_curve = SubResource("CurveTexture_w0syy")
+scale_curve = SubResource("CurveTexture_vgwjd")
+alpha_curve = SubResource("CurveTexture_quovu")
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_k1oem"]
 size = Vector2(168, 80)

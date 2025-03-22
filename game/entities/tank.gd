@@ -18,6 +18,10 @@ func _ready() -> void:
 	if not is_in_group("tank"):
 		add_to_group("tank")
 
+func _process(_delta: float) -> void:
+	if sprite_2d.modulate != Color.WHITE:
+		await get_tree().create_timer(0.05).timeout
+		sprite_2d.modulate = Color.WHITE
 
 func _physics_process(delta: float) -> void:
 	if visible_on_screen_notifier_2d.is_on_screen():
@@ -40,17 +44,18 @@ func damage(total_damage: float) -> void:
 	health -= total_damage
 	health = clampf(health,0,INF)
 	if health <= 0:
-		if not dead:
-			dead = true
-			die()
+		die()
+	sprite_2d.modulate = Color(2,2,2,1)
 
 
 func die() -> void:
-	kaiju.charge(2)
-	kaiju.loot(cost)
-	body_area_2d.queue_free()
-	gpu_particles_2d.emitting = true
-	sprite_2d.visible = false
+	if not dead:
+		dead = true
+		kaiju.charge(2)
+		kaiju.loot(cost)
+		body_area_2d.queue_free()
+		gpu_particles_2d.emitting = true
+		sprite_2d.visible = false
 
 
 func shoot() -> void:
