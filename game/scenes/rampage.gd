@@ -43,7 +43,8 @@ var alert_min: float = 0
 var alert_max: float = 0
 var building_spawn: bool = false
 var enemy_spawn: bool = false
-
+var enemy_spawn_low: float = 0.5
+var enemy_spawn_high: float = 0.1
 
 func _ready() -> void:
 	white_color_rect.modulate.a = 0
@@ -52,6 +53,8 @@ func _ready() -> void:
 	beam_button.pressed.connect(_on_beam_button_pressed)
 	kaiju.game_scene = self
 	max_health = kaiju.current_health
+	GameGlobals.city_screen = true
+	UiMain.ui_transitions.toggle_transition(false)
 
 
 func _process(delta: float) -> void:
@@ -88,6 +91,8 @@ func update_alert() -> void:
 		if alert_max != alert_base:
 			alert_min = 0
 			alert_max = alert_base
+			enemy_spawn_low = 0
+			enemy_spawn_high = -1
 		blink_alert(alert_led_sprite_2d_5)
 		alert_led_sprite_2d_4.visible = false
 		alert_led_sprite_2d_3.visible = false
@@ -97,6 +102,8 @@ func update_alert() -> void:
 		if alert_max != alert_base * 2:
 			alert_min = alert_base
 			alert_max = alert_base * 2
+			enemy_spawn_low = 0.2
+			enemy_spawn_high = 0
 		alert_led_sprite_2d_5.visible = true
 		blink_alert(alert_led_sprite_2d_4)
 		alert_led_sprite_2d_3.visible = false
@@ -106,6 +113,8 @@ func update_alert() -> void:
 		if alert_max != alert_base * 4:
 			alert_min = alert_base * 2
 			alert_max = alert_base * 4
+			enemy_spawn_low = 0.4
+			enemy_spawn_high = 0
 		alert_led_sprite_2d_5.visible = true
 		alert_led_sprite_2d_4.visible = true
 		blink_alert(alert_led_sprite_2d_3)
@@ -115,6 +124,8 @@ func update_alert() -> void:
 		if alert_max != alert_base * 8:
 			alert_min = alert_base * 4
 			alert_max = alert_base * 8
+			enemy_spawn_low = 0.4
+			enemy_spawn_high = 0.2
 		alert_led_sprite_2d_5.visible = true
 		alert_led_sprite_2d_4.visible = true
 		alert_led_sprite_2d_3.visible = true
@@ -124,6 +135,8 @@ func update_alert() -> void:
 		if alert_max != alert_base * 16:
 			alert_min = alert_base * 8
 			alert_max = alert_base * 16
+			enemy_spawn_low = 0.8
+			enemy_spawn_high = 0.4
 		alert_led_sprite_2d_5.visible = true
 		alert_led_sprite_2d_4.visible = true
 		alert_led_sprite_2d_3.visible = true
@@ -223,17 +236,20 @@ func spawn_mecha() -> void:
 	mecha_instance.kaiju = kaiju
 	spawns_node.add_child(mecha_instance)
 
+func back_to_lab() -> void:
+	GameGlobals.city_screen = false
+	UiMain.ui_transitions.change_scene(GameGlobals.lab_scene)
 
 func _on_spawn_timer_timeout() -> void:
 	if kaiju.walking:
 		if GameGlobals.rng.randf_range(0, 1) >= 0.33:
 			var spawn_type: float = GameGlobals.rng.randf_range(0, 1)
-			if spawn_type >= 0.5:
+			if spawn_type >= enemy_spawn_low:
 				spawn_soldier()
-			elif spawn_type > 0.1 and spawn_type < 0.5:
+			elif spawn_type > enemy_spawn_high and spawn_type < enemy_spawn_low:
 				if enemy_spawn:
 					spawn_tank()
-			elif spawn_type <= 0.1:
+			elif spawn_type <= enemy_spawn_high:
 				if enemy_spawn:
 					spawn_mecha()
 

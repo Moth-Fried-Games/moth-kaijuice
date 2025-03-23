@@ -1,6 +1,681 @@
-[gd_scene load_steps=2 format=3 uid="uid://nwhhnvw1i5em"]
+[gd_scene load_steps=35 format=3 uid="uid://nwhhnvw1i5em"]
 
 [ext_resource type="Script" uid="uid://bxbnqdj7t7vp4" path="res://game/scenes/lab.gd" id="1_kxpmb"]
+[ext_resource type="Texture2D" uid="uid://cp7fwr7k2u7qu" path="res://assets/textures/lab/chemistry/mothkaiju_ui_lab_chemistry.png" id="2_6gpec"]
+[ext_resource type="Texture2D" uid="uid://crg7p6rl5se6k" path="res://assets/textures/lab/tv/mothkaiju_bg_lab_tv.png" id="3_253cn"]
+[ext_resource type="Texture2D" uid="uid://dxuuggh0bjph4" path="res://assets/textures/lab/chemistry/mothkaiju_ui_lab_chemistry_vat.png" id="3_u87m7"]
+[ext_resource type="Texture2D" uid="uid://yiyy2ogb8574" path="res://assets/textures/lab/chemistry/mothkaiju_ui_lab_chemistry_vial.png" id="4_aq2s7"]
+[ext_resource type="Texture2D" uid="uid://brbx53mbij6aa" path="res://assets/textures/lab/button/mothkaiju_ui_lab_button_off.png" id="4_u87m7"]
+[ext_resource type="Texture2D" uid="uid://bxu4650y5s1sn" path="res://assets/textures/lab/button/mothkaiju_ui_lab_button_on.png" id="5_aq2s7"]
+[ext_resource type="Texture2D" uid="uid://do4dbcjdo4778" path="res://assets/textures/lab/background/mothkaiju_bg_lab_0.png" id="6_lof0w"]
+[ext_resource type="Texture2D" uid="uid://bco1t3fhgejx7" path="res://assets/textures/lab/ui/mothkaiju_ui_lab_panel.png" id="9_lof0w"]
+[ext_resource type="FontFile" uid="uid://dpno5j5764jhf" path="res://assets/fonts/silkscreen/Silkscreen-Regular.ttf" id="10_y6qd5"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_u87m7"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_aq2s7"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_lof0w"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_y6qd5"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_iyyky"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_4fbg0"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_fm44s"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_pejtw"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_mq7e2"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_vhlxo"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_ejvo5"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_y6qd5"]
+atlas = ExtResource("3_253cn")
+region = Rect2(0, 0, 100, 110)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_iyyky"]
+atlas = ExtResource("3_253cn")
+region = Rect2(100, 0, 100, 110)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_4fbg0"]
+atlas = ExtResource("3_253cn")
+region = Rect2(200, 0, 100, 110)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_fm44s"]
+atlas = ExtResource("3_253cn")
+region = Rect2(300, 0, 100, 110)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_pejtw"]
+atlas = ExtResource("3_253cn")
+region = Rect2(0, 0, 100, 110)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_mq7e2"]
+atlas = ExtResource("3_253cn")
+region = Rect2(100, 0, 100, 110)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_vhlxo"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_y6qd5")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_iyyky")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_4fbg0")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_fm44s")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_4fbg0")
+}],
+"loop": false,
+"name": &"blink",
+"speed": 12.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_pejtw")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_mq7e2")
+}],
+"loop": false,
+"name": &"idle",
+"speed": 12.0
+}]
+
+[sub_resource type="Animation" id="Animation_lof0w"]
+resource_name = "mixer_drain"
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Control/ChemicalControl/MixerMaskSprite2D/MixerSprite2D:position")
+tracks/0/interp = 2
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 1),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector2(0, 0), Vector2(0, 35)]
+}
+
+[sub_resource type="Animation" id="Animation_y6qd5"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Control/ChemicalControl/MixerMaskSprite2D/MixerSprite2D:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(0, 35)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Control/ButtonControl/ButtonSprite2D1:visible")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [true]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("Control/ButtonControl/ButtonSprite2D2:visible")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [false]
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("Control/ChemicalControl/VialMaskSprite2D/VialSprite2D:position")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(0, 22)]
+}
+
+[sub_resource type="Animation" id="Animation_iyyky"]
+resource_name = "mixer_fill"
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Control/ChemicalControl/MixerMaskSprite2D/MixerSprite2D:position")
+tracks/0/interp = 2
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 1),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector2(0, 35), Vector2(0, 0)]
+}
+
+[sub_resource type="Animation" id="Animation_4fbg0"]
+resource_name = "button_press"
+length = 0.2
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Control/ButtonControl/ButtonSprite2D1:visible")
+tracks/0/interp = 0
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.2),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": [false, true]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Control/ButtonControl/ButtonSprite2D2:visible")
+tracks/1/interp = 0
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.2),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": [true, false]
+}
+
+[sub_resource type="Animation" id="Animation_fm44s"]
+resource_name = "vial_fill"
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Control/ChemicalControl/VialMaskSprite2D/VialSprite2D:position")
+tracks/0/interp = 2
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 1),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector2(0, 22), Vector2(0, 2.98023e-06)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_pejtw"]
+_data = {
+&"RESET": SubResource("Animation_y6qd5"),
+&"button_press": SubResource("Animation_4fbg0"),
+&"mixer_drain": SubResource("Animation_lof0w"),
+&"mixer_fill": SubResource("Animation_iyyky"),
+&"vial_fill": SubResource("Animation_fm44s")
+}
 
 [node name="Lab" type="Node2D"]
 script = ExtResource("1_kxpmb")
+
+[node name="Parallax2D" type="Parallax2D" parent="."]
+repeat_size = Vector2(1280, 0)
+repeat_times = 2
+
+[node name="TextureRect" type="Sprite2D" parent="Parallax2D"]
+scale = Vector2(5.33333, 5.33333)
+texture = ExtResource("6_lof0w")
+centered = false
+
+[node name="CanvasLayer" type="CanvasLayer" parent="."]
+
+[node name="Control" type="Control" parent="CanvasLayer"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="ChemicalControl" type="Control" parent="CanvasLayer/Control"]
+layout_mode = 1
+anchors_preset = 1
+anchor_left = 1.0
+anchor_right = 1.0
+grow_horizontal = 0
+
+[node name="ChemicalSprite2D" type="Sprite2D" parent="CanvasLayer/Control/ChemicalControl"]
+scale = Vector2(5.33333, 5.33333)
+texture = ExtResource("2_6gpec")
+centered = false
+offset = Vector2(-161, 0)
+
+[node name="MixerMaskSprite2D" type="Sprite2D" parent="CanvasLayer/Control/ChemicalControl"]
+clip_children = 1
+scale = Vector2(5.33333, 5.33333)
+texture = ExtResource("3_u87m7")
+centered = false
+offset = Vector2(-161, 0)
+
+[node name="MixerSprite2D" type="Sprite2D" parent="CanvasLayer/Control/ChemicalControl/MixerMaskSprite2D"]
+position = Vector2(0, 35)
+texture = ExtResource("3_u87m7")
+centered = false
+offset = Vector2(-161, 0)
+
+[node name="VialMaskSprite2D" type="Sprite2D" parent="CanvasLayer/Control/ChemicalControl"]
+clip_children = 1
+scale = Vector2(5.33333, 5.33333)
+texture = ExtResource("4_aq2s7")
+centered = false
+offset = Vector2(-161, 0)
+
+[node name="VialSprite2D" type="Sprite2D" parent="CanvasLayer/Control/ChemicalControl/VialMaskSprite2D"]
+position = Vector2(0, 22)
+texture = ExtResource("4_aq2s7")
+centered = false
+offset = Vector2(-161, 0)
+
+[node name="AlphaButton" type="Button" parent="CanvasLayer/Control/ChemicalControl"]
+layout_mode = 1
+anchors_preset = 1
+anchor_left = 1.0
+anchor_right = 1.0
+offset_left = -608.0
+offset_top = 64.0
+offset_right = -501.333
+offset_bottom = 170.667
+grow_horizontal = 0
+theme_override_styles/focus = SubResource("StyleBoxEmpty_u87m7")
+theme_override_styles/disabled_mirrored = SubResource("StyleBoxEmpty_aq2s7")
+theme_override_styles/disabled = SubResource("StyleBoxEmpty_lof0w")
+theme_override_styles/hover_pressed_mirrored = SubResource("StyleBoxEmpty_y6qd5")
+theme_override_styles/hover_pressed = SubResource("StyleBoxEmpty_iyyky")
+theme_override_styles/hover_mirrored = SubResource("StyleBoxEmpty_4fbg0")
+theme_override_styles/hover = SubResource("StyleBoxEmpty_fm44s")
+theme_override_styles/pressed_mirrored = SubResource("StyleBoxEmpty_pejtw")
+theme_override_styles/pressed = SubResource("StyleBoxEmpty_mq7e2")
+theme_override_styles/normal_mirrored = SubResource("StyleBoxEmpty_vhlxo")
+theme_override_styles/normal = SubResource("StyleBoxEmpty_ejvo5")
+flat = true
+
+[node name="GammaButton" type="Button" parent="CanvasLayer/Control/ChemicalControl"]
+layout_mode = 1
+anchors_preset = 1
+anchor_left = 1.0
+anchor_right = 1.0
+offset_left = -458.667
+offset_top = 64.0
+offset_right = -352.0
+offset_bottom = 170.667
+grow_horizontal = 0
+theme_override_styles/focus = SubResource("StyleBoxEmpty_u87m7")
+theme_override_styles/disabled_mirrored = SubResource("StyleBoxEmpty_aq2s7")
+theme_override_styles/disabled = SubResource("StyleBoxEmpty_lof0w")
+theme_override_styles/hover_pressed_mirrored = SubResource("StyleBoxEmpty_y6qd5")
+theme_override_styles/hover_pressed = SubResource("StyleBoxEmpty_iyyky")
+theme_override_styles/hover_mirrored = SubResource("StyleBoxEmpty_4fbg0")
+theme_override_styles/hover = SubResource("StyleBoxEmpty_fm44s")
+theme_override_styles/pressed_mirrored = SubResource("StyleBoxEmpty_pejtw")
+theme_override_styles/pressed = SubResource("StyleBoxEmpty_mq7e2")
+theme_override_styles/normal_mirrored = SubResource("StyleBoxEmpty_vhlxo")
+theme_override_styles/normal = SubResource("StyleBoxEmpty_ejvo5")
+flat = true
+
+[node name="BetaButton" type="Button" parent="CanvasLayer/Control/ChemicalControl"]
+layout_mode = 1
+anchors_preset = 1
+anchor_left = 1.0
+anchor_right = 1.0
+offset_left = -309.333
+offset_top = 64.0
+offset_right = -202.666
+offset_bottom = 170.667
+grow_horizontal = 0
+theme_override_styles/focus = SubResource("StyleBoxEmpty_u87m7")
+theme_override_styles/disabled_mirrored = SubResource("StyleBoxEmpty_aq2s7")
+theme_override_styles/disabled = SubResource("StyleBoxEmpty_lof0w")
+theme_override_styles/hover_pressed_mirrored = SubResource("StyleBoxEmpty_y6qd5")
+theme_override_styles/hover_pressed = SubResource("StyleBoxEmpty_iyyky")
+theme_override_styles/hover_mirrored = SubResource("StyleBoxEmpty_4fbg0")
+theme_override_styles/hover = SubResource("StyleBoxEmpty_fm44s")
+theme_override_styles/pressed_mirrored = SubResource("StyleBoxEmpty_pejtw")
+theme_override_styles/pressed = SubResource("StyleBoxEmpty_mq7e2")
+theme_override_styles/normal_mirrored = SubResource("StyleBoxEmpty_vhlxo")
+theme_override_styles/normal = SubResource("StyleBoxEmpty_ejvo5")
+flat = true
+
+[node name="PowerButton" type="Button" parent="CanvasLayer/Control/ChemicalControl"]
+layout_mode = 1
+anchors_preset = 1
+anchor_left = 1.0
+anchor_right = 1.0
+offset_left = -757.333
+offset_top = 213.333
+offset_right = -650.666
+offset_bottom = 320.0
+grow_horizontal = 0
+theme_override_styles/focus = SubResource("StyleBoxEmpty_u87m7")
+theme_override_styles/disabled_mirrored = SubResource("StyleBoxEmpty_aq2s7")
+theme_override_styles/disabled = SubResource("StyleBoxEmpty_lof0w")
+theme_override_styles/hover_pressed_mirrored = SubResource("StyleBoxEmpty_y6qd5")
+theme_override_styles/hover_pressed = SubResource("StyleBoxEmpty_iyyky")
+theme_override_styles/hover_mirrored = SubResource("StyleBoxEmpty_4fbg0")
+theme_override_styles/hover = SubResource("StyleBoxEmpty_fm44s")
+theme_override_styles/pressed_mirrored = SubResource("StyleBoxEmpty_pejtw")
+theme_override_styles/pressed = SubResource("StyleBoxEmpty_mq7e2")
+theme_override_styles/normal_mirrored = SubResource("StyleBoxEmpty_vhlxo")
+theme_override_styles/normal = SubResource("StyleBoxEmpty_ejvo5")
+flat = true
+
+[node name="SpeedButton" type="Button" parent="CanvasLayer/Control/ChemicalControl"]
+layout_mode = 1
+anchors_preset = 1
+anchor_left = 1.0
+anchor_right = 1.0
+offset_left = -757.333
+offset_top = 362.667
+offset_right = -650.666
+offset_bottom = 469.334
+grow_horizontal = 0
+theme_override_styles/focus = SubResource("StyleBoxEmpty_u87m7")
+theme_override_styles/disabled_mirrored = SubResource("StyleBoxEmpty_aq2s7")
+theme_override_styles/disabled = SubResource("StyleBoxEmpty_lof0w")
+theme_override_styles/hover_pressed_mirrored = SubResource("StyleBoxEmpty_y6qd5")
+theme_override_styles/hover_pressed = SubResource("StyleBoxEmpty_iyyky")
+theme_override_styles/hover_mirrored = SubResource("StyleBoxEmpty_4fbg0")
+theme_override_styles/hover = SubResource("StyleBoxEmpty_fm44s")
+theme_override_styles/pressed_mirrored = SubResource("StyleBoxEmpty_pejtw")
+theme_override_styles/pressed = SubResource("StyleBoxEmpty_mq7e2")
+theme_override_styles/normal_mirrored = SubResource("StyleBoxEmpty_vhlxo")
+theme_override_styles/normal = SubResource("StyleBoxEmpty_ejvo5")
+flat = true
+
+[node name="DurabilityButton" type="Button" parent="CanvasLayer/Control/ChemicalControl"]
+layout_mode = 1
+anchors_preset = 1
+anchor_left = 1.0
+anchor_right = 1.0
+offset_left = -757.333
+offset_top = 501.333
+offset_right = -650.666
+offset_bottom = 608.0
+grow_horizontal = 0
+theme_override_styles/focus = SubResource("StyleBoxEmpty_u87m7")
+theme_override_styles/disabled_mirrored = SubResource("StyleBoxEmpty_aq2s7")
+theme_override_styles/disabled = SubResource("StyleBoxEmpty_lof0w")
+theme_override_styles/hover_pressed_mirrored = SubResource("StyleBoxEmpty_y6qd5")
+theme_override_styles/hover_pressed = SubResource("StyleBoxEmpty_iyyky")
+theme_override_styles/hover_mirrored = SubResource("StyleBoxEmpty_4fbg0")
+theme_override_styles/hover = SubResource("StyleBoxEmpty_fm44s")
+theme_override_styles/pressed_mirrored = SubResource("StyleBoxEmpty_pejtw")
+theme_override_styles/pressed = SubResource("StyleBoxEmpty_mq7e2")
+theme_override_styles/normal_mirrored = SubResource("StyleBoxEmpty_vhlxo")
+theme_override_styles/normal = SubResource("StyleBoxEmpty_ejvo5")
+flat = true
+
+[node name="SpecialButton" type="Button" parent="CanvasLayer/Control/ChemicalControl"]
+layout_mode = 1
+anchors_preset = 1
+anchor_left = 1.0
+anchor_right = 1.0
+offset_left = -160.0
+offset_top = 213.333
+offset_right = -53.333
+offset_bottom = 320.0
+grow_horizontal = 0
+theme_override_styles/focus = SubResource("StyleBoxEmpty_u87m7")
+theme_override_styles/disabled_mirrored = SubResource("StyleBoxEmpty_aq2s7")
+theme_override_styles/disabled = SubResource("StyleBoxEmpty_lof0w")
+theme_override_styles/hover_pressed_mirrored = SubResource("StyleBoxEmpty_y6qd5")
+theme_override_styles/hover_pressed = SubResource("StyleBoxEmpty_iyyky")
+theme_override_styles/hover_mirrored = SubResource("StyleBoxEmpty_4fbg0")
+theme_override_styles/hover = SubResource("StyleBoxEmpty_fm44s")
+theme_override_styles/pressed_mirrored = SubResource("StyleBoxEmpty_pejtw")
+theme_override_styles/pressed = SubResource("StyleBoxEmpty_mq7e2")
+theme_override_styles/normal_mirrored = SubResource("StyleBoxEmpty_vhlxo")
+theme_override_styles/normal = SubResource("StyleBoxEmpty_ejvo5")
+flat = true
+
+[node name="DexterityButton" type="Button" parent="CanvasLayer/Control/ChemicalControl"]
+layout_mode = 1
+anchors_preset = 1
+anchor_left = 1.0
+anchor_right = 1.0
+offset_left = -160.0
+offset_top = 362.667
+offset_right = -53.333
+offset_bottom = 469.334
+grow_horizontal = 0
+theme_override_styles/focus = SubResource("StyleBoxEmpty_u87m7")
+theme_override_styles/disabled_mirrored = SubResource("StyleBoxEmpty_aq2s7")
+theme_override_styles/disabled = SubResource("StyleBoxEmpty_lof0w")
+theme_override_styles/hover_pressed_mirrored = SubResource("StyleBoxEmpty_y6qd5")
+theme_override_styles/hover_pressed = SubResource("StyleBoxEmpty_iyyky")
+theme_override_styles/hover_mirrored = SubResource("StyleBoxEmpty_4fbg0")
+theme_override_styles/hover = SubResource("StyleBoxEmpty_fm44s")
+theme_override_styles/pressed_mirrored = SubResource("StyleBoxEmpty_pejtw")
+theme_override_styles/pressed = SubResource("StyleBoxEmpty_mq7e2")
+theme_override_styles/normal_mirrored = SubResource("StyleBoxEmpty_vhlxo")
+theme_override_styles/normal = SubResource("StyleBoxEmpty_ejvo5")
+flat = true
+
+[node name="GuardButton" type="Button" parent="CanvasLayer/Control/ChemicalControl"]
+layout_mode = 1
+anchors_preset = 1
+anchor_left = 1.0
+anchor_right = 1.0
+offset_left = -160.0
+offset_top = 501.333
+offset_right = -53.333
+offset_bottom = 608.0
+grow_horizontal = 0
+theme_override_styles/focus = SubResource("StyleBoxEmpty_u87m7")
+theme_override_styles/disabled_mirrored = SubResource("StyleBoxEmpty_aq2s7")
+theme_override_styles/disabled = SubResource("StyleBoxEmpty_lof0w")
+theme_override_styles/hover_pressed_mirrored = SubResource("StyleBoxEmpty_y6qd5")
+theme_override_styles/hover_pressed = SubResource("StyleBoxEmpty_iyyky")
+theme_override_styles/hover_mirrored = SubResource("StyleBoxEmpty_4fbg0")
+theme_override_styles/hover = SubResource("StyleBoxEmpty_fm44s")
+theme_override_styles/pressed_mirrored = SubResource("StyleBoxEmpty_pejtw")
+theme_override_styles/pressed = SubResource("StyleBoxEmpty_mq7e2")
+theme_override_styles/normal_mirrored = SubResource("StyleBoxEmpty_vhlxo")
+theme_override_styles/normal = SubResource("StyleBoxEmpty_ejvo5")
+flat = true
+
+[node name="VialTooltipControl" type="Control" parent="CanvasLayer/Control/ChemicalControl"]
+layout_mode = 3
+anchors_preset = 0
+offset_left = -632.0
+offset_top = 544.0
+offset_right = -632.0
+offset_bottom = 544.0
+
+[node name="NinePatchRect" type="NinePatchRect" parent="CanvasLayer/Control/ChemicalControl/VialTooltipControl"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -8.0
+offset_right = 80.0
+offset_bottom = 30.0
+grow_horizontal = 2
+grow_vertical = 2
+scale = Vector2(5.33333, 5.33333)
+texture = ExtResource("9_lof0w")
+region_rect = Rect2(0, 0, 24, 24)
+patch_margin_left = 6
+patch_margin_top = 6
+patch_margin_right = 6
+patch_margin_bottom = 6
+axis_stretch_horizontal = 1
+axis_stretch_vertical = 1
+
+[node name="VialRichTextLabel" type="RichTextLabel" parent="CanvasLayer/Control/ChemicalControl/VialTooltipControl"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -8.0
+offset_right = 464.0
+offset_bottom = 160.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_colors/default_color = Color(0.78, 0.827, 0.863, 0.5)
+theme_override_fonts/normal_font = ExtResource("10_y6qd5")
+theme_override_font_sizes/normal_font_size = 40
+bbcode_enabled = true
+text = "[center]Attribute
+0 ml
+$0"
+fit_content = true
+scroll_active = false
+
+[node name="TVControl" type="Control" parent="CanvasLayer/Control"]
+layout_mode = 1
+anchors_preset = 0
+
+[node name="TVAnimatedSprite2D" type="AnimatedSprite2D" parent="CanvasLayer/Control/TVControl"]
+scale = Vector2(5.33333, 5.33333)
+sprite_frames = SubResource("SpriteFrames_vhlxo")
+animation = &"blink"
+centered = false
+
+[node name="ButtonControl" type="Control" parent="CanvasLayer/Control"]
+layout_mode = 1
+anchors_preset = 2
+anchor_top = 1.0
+anchor_bottom = 1.0
+grow_vertical = 0
+
+[node name="ButtonSprite2D1" type="Sprite2D" parent="CanvasLayer/Control/ButtonControl"]
+scale = Vector2(5.33333, 5.33333)
+texture = ExtResource("4_u87m7")
+centered = false
+offset = Vector2(0, -47)
+
+[node name="ButtonSprite2D2" type="Sprite2D" parent="CanvasLayer/Control/ButtonControl"]
+visible = false
+scale = Vector2(5.33333, 5.33333)
+texture = ExtResource("5_aq2s7")
+centered = false
+offset = Vector2(0, -47)
+
+[node name="StartButton" type="Button" parent="CanvasLayer/Control/ButtonControl"]
+layout_mode = 1
+anchors_preset = 2
+anchor_top = 1.0
+anchor_bottom = 1.0
+offset_left = 96.0
+offset_top = -250.667
+offset_right = 277.333
+offset_bottom = -85.334
+grow_vertical = 0
+theme_override_styles/focus = SubResource("StyleBoxEmpty_u87m7")
+theme_override_styles/disabled_mirrored = SubResource("StyleBoxEmpty_aq2s7")
+theme_override_styles/disabled = SubResource("StyleBoxEmpty_lof0w")
+theme_override_styles/hover_pressed_mirrored = SubResource("StyleBoxEmpty_y6qd5")
+theme_override_styles/hover_pressed = SubResource("StyleBoxEmpty_iyyky")
+theme_override_styles/hover_mirrored = SubResource("StyleBoxEmpty_4fbg0")
+theme_override_styles/hover = SubResource("StyleBoxEmpty_fm44s")
+theme_override_styles/pressed_mirrored = SubResource("StyleBoxEmpty_pejtw")
+theme_override_styles/pressed = SubResource("StyleBoxEmpty_mq7e2")
+theme_override_styles/normal_mirrored = SubResource("StyleBoxEmpty_vhlxo")
+theme_override_styles/normal = SubResource("StyleBoxEmpty_ejvo5")
+flat = true
+
+[node name="StartTooltipControl" type="Control" parent="CanvasLayer/Control/ButtonControl/StartButton"]
+layout_mode = 1
+anchors_preset = 0
+offset_left = 40.0
+offset_top = 40.0
+offset_right = 40.0
+offset_bottom = 40.0
+
+[node name="NinePatchRect" type="NinePatchRect" parent="CanvasLayer/Control/ButtonControl/StartButton/StartTooltipControl"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = 204.0
+offset_top = -17.0
+offset_right = 248.0
+offset_bottom = 2.0
+grow_horizontal = 2
+grow_vertical = 2
+scale = Vector2(5.33333, 5.33333)
+texture = ExtResource("9_lof0w")
+region_rect = Rect2(0, 0, 24, 24)
+patch_margin_left = 6
+patch_margin_top = 6
+patch_margin_right = 6
+patch_margin_bottom = 6
+axis_stretch_horizontal = 1
+axis_stretch_vertical = 1
+
+[node name="RichTextLabel" type="RichTextLabel" parent="CanvasLayer/Control/ButtonControl/StartButton/StartTooltipControl"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 208.0
+offset_top = -23.0
+offset_right = 440.0
+offset_bottom = 80.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_colors/default_color = Color(0.78, 0.827, 0.863, 0.5)
+theme_override_fonts/normal_font = ExtResource("10_y6qd5")
+theme_override_font_sizes/normal_font_size = 80
+bbcode_enabled = true
+text = "[center]TEST"
+fit_content = true
+scroll_active = false
+
+[node name="JuiceTimer" type="Timer" parent="."]
+wait_time = 0.1
+one_shot = true
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+root_node = NodePath("../CanvasLayer")
+libraries = {
+&"": SubResource("AnimationLibrary_pejtw")
+}
+
+[node name="AnimationPlayer2" type="AnimationPlayer" parent="."]
+root_node = NodePath("../CanvasLayer")
+libraries = {
+&"": SubResource("AnimationLibrary_pejtw")
+}
+
+[node name="AnimationPlayer3" type="AnimationPlayer" parent="."]
+root_node = NodePath("../CanvasLayer")
+libraries = {
+&"": SubResource("AnimationLibrary_pejtw")
+}
+
+[connection signal="mouse_entered" from="CanvasLayer/Control/ChemicalControl/AlphaButton" to="." method="_on_alpha_button_mouse_entered"]
+[connection signal="mouse_entered" from="CanvasLayer/Control/ChemicalControl/GammaButton" to="." method="_on_gamma_button_mouse_entered"]
+[connection signal="mouse_entered" from="CanvasLayer/Control/ChemicalControl/BetaButton" to="." method="_on_beta_button_mouse_entered"]
+[connection signal="mouse_entered" from="CanvasLayer/Control/ChemicalControl/PowerButton" to="." method="_on_power_button_mouse_entered"]
+[connection signal="mouse_entered" from="CanvasLayer/Control/ChemicalControl/SpeedButton" to="." method="_on_speed_button_mouse_entered"]
+[connection signal="mouse_entered" from="CanvasLayer/Control/ChemicalControl/DurabilityButton" to="." method="_on_durability_button_mouse_entered"]
+[connection signal="mouse_entered" from="CanvasLayer/Control/ChemicalControl/SpecialButton" to="." method="_on_special_button_mouse_entered"]
+[connection signal="mouse_entered" from="CanvasLayer/Control/ChemicalControl/DexterityButton" to="." method="_on_dexterity_button_mouse_entered"]
+[connection signal="mouse_entered" from="CanvasLayer/Control/ChemicalControl/GuardButton" to="." method="_on_guard_button_mouse_entered"]
+[connection signal="mouse_entered" from="CanvasLayer/Control/ButtonControl/StartButton" to="." method="_on_start_button_mouse_entered"]
+[connection signal="mouse_exited" from="CanvasLayer/Control/ButtonControl/StartButton" to="." method="_on_start_button_mouse_exited"]
+[connection signal="pressed" from="CanvasLayer/Control/ButtonControl/StartButton" to="." method="_on_start_button_pressed"]

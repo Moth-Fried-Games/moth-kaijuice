@@ -9,7 +9,7 @@ extends Node2D
 @onready var line_2d: Line2D = $Visuals/Line2D
 @onready var gpu_particles_2d: GPUParticles2D = $Visuals/GPUParticles2D
 
-var health: float = 400
+var health: float = 200
 var kill_timer: float = 0
 var entered_screen: bool = false
 var dead: bool = false
@@ -24,7 +24,7 @@ func _ready() -> void:
 		add_to_group("mecha")
 
 
-func _process(delta: float) -> void:
+func _process(_delta: float) -> void:
 	if animated_sprite_2d.modulate != Color.WHITE:
 		await get_tree().create_timer(0.05).timeout
 		animated_sprite_2d.modulate = Color.WHITE

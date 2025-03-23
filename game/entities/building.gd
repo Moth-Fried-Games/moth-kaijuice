@@ -32,17 +32,17 @@ func _ready() -> void:
 		1:
 			middle_sprite_2d.visible = false
 			big_sprite_2d.visible = false
-			health = 150
+			health = 100
 			cost = 2500
 		2:
 			small_sprite_2d.visible = false
 			big_sprite_2d.visible = false
-			health = 200
+			health = 150
 			cost = 7500
 		3:
 			small_sprite_2d.visible = false
 			middle_sprite_2d.visible = false
-			health = 300
+			health = 200
 			cost = 10000
 
 func _process(_delta: float) -> void:

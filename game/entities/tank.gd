@@ -7,7 +7,7 @@ extends Node2D
 @onready var gpu_particles_2d: GPUParticles2D = $Visuals/GPUParticles2D
 @onready var sprite_2d: Sprite2D = $Visuals/Sprite2D
 
-var health: float = 200
+var health: float = 100
 var kill_timer: float = 0
 var entered_screen: bool = false
 var dead: bool = false

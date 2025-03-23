@@ -1,7 +1,8 @@
-[gd_scene load_steps=48 format=3 uid="uid://c5fr7cw22ijci"]
+[gd_scene load_steps=53 format=3 uid="uid://c5fr7cw22ijci"]
 
 [ext_resource type="Script" uid="uid://dcap4is2nmi5c" path="res://game/entities/kaiju.gd" id="1_jvakf"]
 [ext_resource type="Texture2D" uid="uid://dp8ltkycpl0df" path="res://assets/textures/city/kaiju/mothkaiju_pc.png" id="2_5m4ok"]
+[ext_resource type="Texture2D" uid="uid://cpclo03s3erij" path="res://assets/textures/city/kaiju/mothkaiju_pc_atfield.png" id="3_ijp4q"]
 [ext_resource type="Texture2D" uid="uid://dvsnsqybs2bmt" path="res://assets/textures/city/kaiju/mothkaiju_pc_laser.png" id="3_jtir7"]
 [ext_resource type="Texture2D" uid="uid://dhavdyn41bhc1" path="res://assets/textures/city/kaiju/mothkaiju_pc_scientist.png" id="3_xbjqu"]
 
@@ -235,6 +236,35 @@ animations = [{
 "loop": true,
 "name": &"walk",
 "speed": 6.0
+}]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_xstig"]
+atlas = ExtResource("3_ijp4q")
+region = Rect2(0, 0, 93, 93)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_howsh"]
+atlas = ExtResource("3_ijp4q")
+region = Rect2(93, 0, 93, 93)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_6svei"]
+atlas = ExtResource("3_ijp4q")
+region = Rect2(186, 0, 93, 93)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_7g0f5"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_xstig")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_howsh")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_6svei")
+}],
+"loop": true,
+"name": &"default",
+"speed": 12.0
 }]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_m83df"]
@@ -646,6 +676,13 @@ scale = Vector2(5.33333, 5.33333)
 sprite_frames = SubResource("SpriteFrames_yx682")
 animation = &"idle"
 
+[node name="GuardAnimatedSprite2D" type="AnimatedSprite2D" parent="Visuals"]
+position = Vector2(0, -184)
+scale = Vector2(5.33333, 5.33333)
+sprite_frames = SubResource("SpriteFrames_7g0f5")
+autoplay = "default"
+frame_progress = 0.374025
+
 [node name="BeamNode2D" type="Node2D" parent="Visuals"]
 position = Vector2(0, -266.667)
 scale = Vector2(1, 1e-05)
@@ -666,10 +703,6 @@ autoplay = "default"
 [node name="Sprite2D" type="Sprite2D" parent="Visuals"]
 scale = Vector2(5.33333, 5.33333)
 texture = ExtResource("3_xbjqu")
-
-[node name="Polygon2D3" type="Polygon2D" parent="Visuals"]
-position = Vector2(0, -24)
-polygon = PackedVector2Array(0, -192, -64, -88, 0, 0, 64, -96)
 
 [node name="Areas" type="Node2D" parent="."]
 

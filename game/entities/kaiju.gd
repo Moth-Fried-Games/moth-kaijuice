@@ -3,13 +3,12 @@ extends Node2D
 @onready var body_area_2d: Area2D = $Areas/BodyArea2D
 @onready var attack_area_2d: Area2D = $Areas/AttackArea2D
 @onready var animated_sprite_2d: AnimatedSprite2D = $Visuals/AnimatedSprite2D
+@onready var guard_animated_sprite_2d: AnimatedSprite2D = $Visuals/GuardAnimatedSprite2D
 @onready var animation_player: AnimationPlayer = $AnimationPlayer
 @onready var beam_animation_player: AnimationPlayer = $BeamAnimationPlayer
 
-@onready var polygon_2d_3: Polygon2D = $Visuals/Polygon2D3
-
 var base_health: float = 1000
-var base_damage: float = 100
+var base_damage: float = 50
 var base_move_speed: float = 100
 var base_attack_speed: float = 1
 var base_guard_rate: float = 0.1
@@ -35,14 +34,20 @@ var discharging: bool = false
 func _ready() -> void:
 	if not is_in_group("kaiju"):
 		add_to_group("kaiju")
-	polygon_2d_3.modulate.a = 0
+	guard_animated_sprite_2d.modulate.a = 0
 	animated_sprite_2d.play("idle")
-	
+	current_health = base_health + (base_health * GameGlobals.vial_data["durability"]) + (base_health * GameGlobals.vial_data["beta"]) 
+	current_damage = base_damage + (base_damage * GameGlobals.vial_data["power"]) + (base_damage * GameGlobals.vial_data["alpha"]) 
+	current_move_speed = base_move_speed + (base_move_speed * GameGlobals.vial_data["speed"]) + (base_move_speed * GameGlobals.vial_data["gamma"]) 
+	current_attack_speed = base_attack_speed + (base_attack_speed * GameGlobals.vial_data["dexterity"]) + (base_attack_speed * GameGlobals.vial_data["gamma"]) 
+	current_guard_rate = base_guard_rate + (base_guard_rate * GameGlobals.vial_data["guard"]) + (base_guard_rate * GameGlobals.vial_data["beta"]) 
+	current_special_cooldown = base_special_cooldown - (base_special_cooldown * GameGlobals.vial_data["special"]) - (base_special_cooldown * GameGlobals.vial_data["alpha"]) 
+	current_special_cooldown = clampf(current_special_cooldown, 0, INF)
 
 
 func _process(delta: float) -> void:
-	if polygon_2d_3.modulate.a > 0:
-		polygon_2d_3.modulate.a -= 2 * delta
+	if guard_animated_sprite_2d.modulate.a > 0:
+		guard_animated_sprite_2d.modulate.a -= 2 * delta
 
 
 func _physics_process(_delta: float) -> void:
@@ -127,7 +132,7 @@ func attack(attack_targets: Array[Node2D]) -> void:
 
 
 func guard() -> void:
-	polygon_2d_3.modulate.a = 1
+	guard_animated_sprite_2d.modulate.a = 1
 
 
 func damage(total_damage: float) -> void:
@@ -141,10 +146,12 @@ func damage(total_damage: float) -> void:
 		if current_health <= 0:
 			if not shrunk:
 				shrunk = true
-				animated_sprite_2d.play("idle")
-				animation_player.play("shrink")
 				body_area_2d.queue_free()
 				attack_area_2d.queue_free()
+				animated_sprite_2d.play("idle")
+				animation_player.play("shrink")
+				await animation_player.animation_finished
+				game_scene.back_to_lab()
 
 
 func charge(value: float) -> void:
