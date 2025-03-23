@@ -734,7 +734,7 @@ text = "[center][b]Art and Animation[/b]
 [url=https://myrthemoth.neocities.org/]Myr the Moth[/url]
 
 [b]Audio[/b]
-Music and SFX by Ovani Sound
+[url=https://ovanisound.com/]Music and SFX by Ovani Sound[/url]
 
 [b]Fonts[/b]
 [url=https://fonts.google.com/?query=Jason+Kottke]Silkscreen by Jason Kottke[/url]
@@ -743,9 +743,7 @@ Music and SFX by Ovani Sound
 [url=https://github.com/Aarimous/AudioManager]AudioManager[/url]
 [url=https://github.com/ryan-haskell/gdformat-on-save]Format on Save[/url]
 
-Created for the Godot Wild Jam #79
-Theme: Growing
-Wildcards: One-Handed, Feeling Chemistry"
+Created for the [url=https://itch.io/jam/godot-wild-jam-79]Godot Wild Jam #79[/url]"
 
 [node name="ReturnButton" type="Button" parent="Control/TabContainer/Credits/VBoxContainer"]
 layout_mode = 2

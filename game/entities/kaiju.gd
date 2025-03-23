@@ -7,7 +7,7 @@ extends Node2D
 @onready var animation_player: AnimationPlayer = $AnimationPlayer
 @onready var beam_animation_player: AnimationPlayer = $BeamAnimationPlayer
 
-var base_health: float = 1000
+var base_health: float = 500
 var base_damage: float = 50
 var base_move_speed: float = 100
 var base_attack_speed: float = 1

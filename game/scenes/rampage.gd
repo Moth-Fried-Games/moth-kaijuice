@@ -38,13 +38,14 @@ var damage_pay: float = 0
 var max_health: float = 0
 var special_charge: float = 0
 var alert_level: float = 0
-var alert_base: float = 800
+var alert_base: float = 400
 var alert_min: float = 0
 var alert_max: float = 0
 var building_spawn: bool = false
 var enemy_spawn: bool = false
 var enemy_spawn_low: float = 0.5
 var enemy_spawn_high: float = 0.1
+
 
 func _ready() -> void:
 	white_color_rect.modulate.a = 0
@@ -65,8 +66,10 @@ func _process(delta: float) -> void:
 	update_special()
 	update_alert()
 
+
 func update_money() -> void:
-	money_rich_text_label.text = str("[center]$",int(damage_pay))
+	money_rich_text_label.text = str("[center]$", int(damage_pay))
+
 
 func update_health() -> void:
 	var health_percentage: float = kaiju.current_health / max_health
@@ -189,15 +192,17 @@ func move_forward(move_speed: float) -> void:
 			if not child.is_in_group("kaiju"):
 				child.global_position.x -= move_speed * get_physics_process_delta_time()
 
+
 func beam() -> void:
 	white_color_rect.modulate.a = 1
 	var tween = get_tree().create_tween()
-	tween.tween_property(self, "special_charge",0,1)
+	tween.tween_property(self, "special_charge", 0, 1)
 	for child in spawns_node.get_children():
 		if is_instance_valid(child):
 			if not child.is_in_group("bullet") and not child.is_in_group("kaiju"):
 				if not child.dead:
 					child.die()
+
 
 func spawn_building() -> void:
 	var building_instance = building_resource.instantiate()
@@ -236,9 +241,12 @@ func spawn_mecha() -> void:
 	mecha_instance.kaiju = kaiju
 	spawns_node.add_child(mecha_instance)
 
+
 func back_to_lab() -> void:
+	GameGlobals.total_money += int(damage_pay)
 	GameGlobals.city_screen = false
 	UiMain.ui_transitions.change_scene(GameGlobals.lab_scene)
+
 
 func _on_spawn_timer_timeout() -> void:
 	if kaiju.walking:
@@ -259,7 +267,7 @@ func _on_building_timer_timeout() -> void:
 		if GameGlobals.rng.randf_range(0, 1) >= 0.33:
 			spawn_building()
 
+
 func _on_beam_button_pressed() -> void:
 	if not kaiju.shooting and not kaiju.discharging:
 		kaiju.shooting = true
-		

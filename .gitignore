@@ -1,6 +1,9 @@
 # Game Build ignores
 builds/
 
+# Ovani Sound Ignore
+assets/audio/
+
 # Godot 4+ specific ignores
 .godot/
 /android/

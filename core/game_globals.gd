@@ -21,6 +21,7 @@ var city_screen: bool = false
 var total_money: int = 100000
 var vial_data: Dictionary = {}
 
+
 func _ready() -> void:
 	process_mode = Node.PROCESS_MODE_ALWAYS
 	randomize()
