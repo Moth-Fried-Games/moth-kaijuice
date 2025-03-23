@@ -1,0 +1,19 @@
+[gd_resource type="Resource" script_class="AudioSettings" load_steps=3 format=3 uid="uid://dm8ue673mdu0w"]
+
+[ext_resource type="AudioStream" uid="uid://00xgdel5fc1w" path="res://assets/audio/sounds/ovani/city/mecha_shoot/Thunder Magic Like A Sith.wav" id="1_8xuig"]
+[ext_resource type="Script" uid="uid://cxwuxelio1bot" path="res://core/audio/audio_settings.gd" id="2_khv64"]
+
+[resource]
+script = ExtResource("2_khv64")
+limit = 5
+audio_name = ""
+audio_type = 1
+audio_stream = ExtResource("1_8xuig")
+volume = 0.0
+pitch_scale = 1.0
+pitch_randomness = 0.2
+max_distance_2d = 2000.0
+unit_size = 10.0
+max_distance_3d = 0.0
+reverb_tail = 0.0
+metadata/_custom_type_script = "uid://cxwuxelio1bot"

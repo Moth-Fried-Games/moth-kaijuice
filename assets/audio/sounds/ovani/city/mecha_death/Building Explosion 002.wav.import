@@ -1,0 +1,24 @@
+[remap]
+
+importer="wav"
+type="AudioStreamWAV"
+uid="uid://b50d50wg7dacl"
+path="res://.godot/imported/Building Explosion 002.wav-8f10e59835705890de240bb90531e62d.sample"
+
+[deps]
+
+source_file="res://assets/audio/sounds/ovani/city/mecha_death/Building Explosion 002.wav"
+dest_files=["res://.godot/imported/Building Explosion 002.wav-8f10e59835705890de240bb90531e62d.sample"]
+
+[params]
+
+force/8_bit=false
+force/mono=false
+force/max_rate=false
+force/max_rate_hz=44100
+edit/trim=true
+edit/normalize=false
+edit/loop_mode=0
+edit/loop_begin=0
+edit/loop_end=-1
+compress/mode=2

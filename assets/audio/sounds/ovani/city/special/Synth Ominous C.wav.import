@@ -1,0 +1,24 @@
+[remap]
+
+importer="wav"
+type="AudioStreamWAV"
+uid="uid://dhnr7imdj5q6o"
+path="res://.godot/imported/Synth Ominous C.wav-10194b95339ef438a167a9eaa3d47803.sample"
+
+[deps]
+
+source_file="res://assets/audio/sounds/ovani/city/special/Synth Ominous C.wav"
+dest_files=["res://.godot/imported/Synth Ominous C.wav-10194b95339ef438a167a9eaa3d47803.sample"]
+
+[params]
+
+force/8_bit=false
+force/mono=false
+force/max_rate=false
+force/max_rate_hz=44100
+edit/trim=true
+edit/normalize=false
+edit/loop_mode=0
+edit/loop_begin=0
+edit/loop_end=-1
+compress/mode=2

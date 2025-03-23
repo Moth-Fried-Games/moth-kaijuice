@@ -1,0 +1,24 @@
+[remap]
+
+importer="wav"
+type="AudioStreamWAV"
+uid="uid://cgx211drgkekf"
+path="res://.godot/imported/Rattle Power Up.wav-d72a3cd16ed6254fc9425ef9d33928dc.sample"
+
+[deps]
+
+source_file="res://assets/audio/sounds/ovani/city/mecha_charge/Rattle Power Up.wav"
+dest_files=["res://.godot/imported/Rattle Power Up.wav-d72a3cd16ed6254fc9425ef9d33928dc.sample"]
+
+[params]
+
+force/8_bit=false
+force/mono=false
+force/max_rate=false
+force/max_rate_hz=44100
+edit/trim=true
+edit/normalize=false
+edit/loop_mode=0
+edit/loop_begin=0
+edit/loop_end=-1
+compress/mode=2

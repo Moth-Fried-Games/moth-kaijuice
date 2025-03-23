@@ -1,0 +1,24 @@
+[remap]
+
+importer="wav"
+type="AudioStreamWAV"
+uid="uid://cceofsgssp5q7"
+path="res://.godot/imported/Building Demolition 001.wav-5fe4255a2a2dbb24ed92cd126339d483.sample"
+
+[deps]
+
+source_file="res://assets/audio/sounds/ovani/city/building_death/Building Demolition 001.wav"
+dest_files=["res://.godot/imported/Building Demolition 001.wav-5fe4255a2a2dbb24ed92cd126339d483.sample"]
+
+[params]
+
+force/8_bit=false
+force/mono=false
+force/max_rate=false
+force/max_rate_hz=44100
+edit/trim=true
+edit/normalize=false
+edit/loop_mode=0
+edit/loop_begin=0
+edit/loop_end=-1
+compress/mode=2

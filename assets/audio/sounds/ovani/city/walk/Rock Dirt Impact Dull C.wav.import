@@ -1,0 +1,24 @@
+[remap]
+
+importer="wav"
+type="AudioStreamWAV"
+uid="uid://xx3863guvi63"
+path="res://.godot/imported/Rock Dirt Impact Dull C.wav-b796124d73be9acb35f2ba8e8e9f1baa.sample"
+
+[deps]
+
+source_file="res://assets/audio/sounds/ovani/city/walk/Rock Dirt Impact Dull C.wav"
+dest_files=["res://.godot/imported/Rock Dirt Impact Dull C.wav-b796124d73be9acb35f2ba8e8e9f1baa.sample"]
+
+[params]
+
+force/8_bit=false
+force/mono=false
+force/max_rate=false
+force/max_rate_hz=44100
+edit/trim=true
+edit/normalize=false
+edit/loop_mode=0
+edit/loop_begin=0
+edit/loop_end=-1
+compress/mode=2

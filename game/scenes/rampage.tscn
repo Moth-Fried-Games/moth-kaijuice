@@ -199,6 +199,18 @@ tracks/5/keys = {
 "update": 1,
 "values": [true]
 }
+tracks/6/type = "value"
+tracks/6/imported = false
+tracks/6/enabled = true
+tracks/6/path = NodePath("UI/NukeRichTextLabel:visible")
+tracks/6/interp = 1
+tracks/6/loop_wrap = true
+tracks/6/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [false]
+}
 
 [sub_resource type="Animation" id="Animation_5qys1"]
 resource_name = "nuke"
@@ -242,7 +254,7 @@ tracks/2/keys = {
 
 [sub_resource type="Animation" id="Animation_p8l0g"]
 resource_name = "nuke_win"
-length = 4.0
+length = 8.0
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
@@ -299,6 +311,18 @@ tracks/4/interp = 1
 tracks/4/loop_wrap = true
 tracks/4/keys = {
 "times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [true]
+}
+tracks/5/type = "value"
+tracks/5/imported = false
+tracks/5/enabled = true
+tracks/5/path = NodePath("UI/NukeRichTextLabel:visible")
+tracks/5/interp = 1
+tracks/5/loop_wrap = true
+tracks/5/keys = {
+"times": PackedFloat32Array(4),
 "transitions": PackedFloat32Array(1),
 "update": 1,
 "values": [true]
@@ -482,6 +506,26 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 mouse_filter = 2
+
+[node name="NukeRichTextLabel" type="RichTextLabel" parent="UI"]
+visible = false
+anchors_preset = 10
+anchor_right = 1.0
+offset_top = 40.0
+offset_bottom = 226.0
+grow_horizontal = 2
+theme_override_colors/default_color = Color(0.976471, 0.882353, 0.584314, 1)
+theme_override_colors/font_outline_color = Color(0.133333, 0.0745098, 0.0431373, 1)
+theme_override_constants/outline_size = 20
+theme_override_fonts/normal_font = ExtResource("2_5qys1")
+theme_override_font_sizes/normal_font_size = 48
+bbcode_enabled = true
+text = "[center]You survived Nuclear Annihilation.
+
+You have become the Ultimate Lifeform.
+
+Congratulations."
+fit_content = true
 
 [node name="Results" type="Control" parent="UI"]
 visible = false

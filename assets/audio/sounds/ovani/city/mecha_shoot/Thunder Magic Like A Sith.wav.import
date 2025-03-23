@@ -1,0 +1,24 @@
+[remap]
+
+importer="wav"
+type="AudioStreamWAV"
+uid="uid://00xgdel5fc1w"
+path="res://.godot/imported/Thunder Magic Like A Sith.wav-4e9b79ee7e158511ded854a94588fe34.sample"
+
+[deps]
+
+source_file="res://assets/audio/sounds/ovani/city/mecha_shoot/Thunder Magic Like A Sith.wav"
+dest_files=["res://.godot/imported/Thunder Magic Like A Sith.wav-4e9b79ee7e158511ded854a94588fe34.sample"]
+
+[params]
+
+force/8_bit=false
+force/mono=false
+force/max_rate=false
+force/max_rate_hz=44100
+edit/trim=true
+edit/normalize=false
+edit/loop_mode=0
+edit/loop_begin=0
+edit/loop_end=-1
+compress/mode=2

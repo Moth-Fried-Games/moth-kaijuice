@@ -67,7 +67,7 @@ func _ready() -> void:
 		- (base_special_cooldown * GameGlobals.vial_data["special"])
 		- (base_special_cooldown * GameGlobals.vial_data["alpha"])
 	)
-	current_special_cooldown = clampf(current_special_cooldown, 0, INF)
+	current_special_cooldown = clampf(current_special_cooldown, 0.1, INF)
 
 
 func _process(delta: float) -> void:
@@ -100,7 +100,7 @@ func _physics_process(_delta: float) -> void:
 		and not shooting
 		and not discharging
 		and not animation_player.is_playing()
-		and not game_scene.nuke_step > 1
+		and not game_scene.nuke_step > 5
 	):
 		if is_instance_valid(attack_area_2d):
 			if attack_area_2d.has_overlapping_areas():
@@ -114,6 +114,11 @@ func _physics_process(_delta: float) -> void:
 					await attack(attack_targets)
 			else:
 				walk()
+
+	if game_scene.nuke_step > 5:
+		if walking:
+			walking = false
+		animated_sprite_2d.play("idle")
 
 	if grown and shooting:
 		shooting = false

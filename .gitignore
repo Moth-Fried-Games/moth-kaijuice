@@ -2,8 +2,7 @@
 builds/
 
 # Ovani Sound Ignore
-assets/audio/music/ovani/
-assets/audio/sounds/ovani/
+*.wav
 
 # Godot 4+ specific ignores
 .godot/

@@ -41,7 +41,7 @@ var damage_pay: float = 0
 var max_health: float = 0
 var special_charge: float = 0
 var alert_level: float = 0
-var alert_base: float = 100
+var alert_base: float = 400
 var alert_min: float = 0
 var alert_max: float = 0
 var building_spawn: bool = false
@@ -178,29 +178,28 @@ func blink_alert(alert_led: Node2D) -> void:
 
 
 func _physics_process(_delta: float) -> void:
-	if nuke_step == 0:
-		if spawn_marker_2d.global_position.x != (get_viewport().size.x + 200):
-			spawn_marker_2d.global_position.x = (get_viewport().size.x + 200)
-		if building_marker_2d.global_position.x != (get_viewport().size.x + 200):
-			building_marker_2d.global_position.x = (get_viewport().size.x + 200)
+	if spawn_marker_2d.global_position.x != (get_window().size.x + 200):
+		spawn_marker_2d.global_position.x = (get_window().size.x + 200)
+	if building_marker_2d.global_position.x != (get_window().size.x + 200):
+		building_marker_2d.global_position.x = (get_window().size.x + 200)
 
-		if building_area_2d.has_overlapping_areas():
-			if building_spawn:
-				building_spawn = false
-		else:
-			if not building_spawn:
-				building_spawn = true
-			if building_timer.is_stopped():
-				building_timer.start()
+	if building_area_2d.has_overlapping_areas():
+		if building_spawn:
+			building_spawn = false
+	else:
+		if not building_spawn:
+			building_spawn = true
+		if building_timer.is_stopped():
+			building_timer.start()
 
-		if spawn_area_2d.has_overlapping_areas():
-			if enemy_spawn:
-				enemy_spawn = false
-		else:
-			if not enemy_spawn:
-				enemy_spawn = true
-			if spawn_timer.is_stopped():
-				spawn_timer.start()
+	if spawn_area_2d.has_overlapping_areas():
+		if enemy_spawn:
+			enemy_spawn = false
+	else:
+		if not enemy_spawn:
+			enemy_spawn = true
+		if spawn_timer.is_stopped():
+			spawn_timer.start()
 
 	if nuke_step == 1:
 		nuke_step = 2
@@ -322,7 +321,7 @@ func _on_spawn_timer_timeout() -> void:
 
 
 func _on_building_timer_timeout() -> void:
-	if kaiju.walking and building_spawn and not nuke_step > 0:
+	if kaiju.walking and building_spawn:
 		if GameGlobals.rng.randf_range(0, 1) >= 0.33:
 			spawn_building()
 

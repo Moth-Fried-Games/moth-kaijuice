@@ -1,0 +1,24 @@
+[remap]
+
+importer="wav"
+type="AudioStreamWAV"
+uid="uid://bmt6x2fojhgx6"
+path="res://.godot/imported/Fire Bomb 004.wav-df75a73d1320895d391bd9e7f617efbf.sample"
+
+[deps]
+
+source_file="res://assets/audio/sounds/ovani/city/tank_death/Fire Bomb 004.wav"
+dest_files=["res://.godot/imported/Fire Bomb 004.wav-df75a73d1320895d391bd9e7f617efbf.sample"]
+
+[params]
+
+force/8_bit=false
+force/mono=false
+force/max_rate=false
+force/max_rate_hz=44100
+edit/trim=true
+edit/normalize=false
+edit/loop_mode=0
+edit/loop_begin=0
+edit/loop_end=-1
+compress/mode=2

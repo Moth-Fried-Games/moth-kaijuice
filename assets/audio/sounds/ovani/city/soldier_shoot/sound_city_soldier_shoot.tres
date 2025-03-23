@@ -1,0 +1,19 @@
+[gd_resource type="Resource" script_class="AudioSettings" load_steps=3 format=3 uid="uid://c1t5inj81ufam"]
+
+[ext_resource type="AudioStream" uid="uid://do1m520ahwror" path="res://assets/audio/sounds/ovani/city/soldier_shoot/243 Rifle A 001.wav" id="1_kbi6q"]
+[ext_resource type="Script" uid="uid://cxwuxelio1bot" path="res://core/audio/audio_settings.gd" id="2_k28vq"]
+
+[resource]
+script = ExtResource("2_k28vq")
+limit = 5
+audio_name = ""
+audio_type = 1
+audio_stream = ExtResource("1_kbi6q")
+volume = 0.0
+pitch_scale = 1.0
+pitch_randomness = 0.2
+max_distance_2d = 2000.0
+unit_size = 10.0
+max_distance_3d = 0.0
+reverb_tail = 0.0
+metadata/_custom_type_script = "uid://cxwuxelio1bot"

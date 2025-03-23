@@ -1,0 +1,19 @@
+[gd_resource type="Resource" script_class="AudioSettings" load_steps=3 format=3 uid="uid://dkejcfyix7b1t"]
+
+[ext_resource type="AudioStream" uid="uid://bjk0sp7te24rm" path="res://assets/audio/sounds/ovani/lab/button/General Alarm Tone.wav" id="1_gw214"]
+[ext_resource type="Script" uid="uid://cxwuxelio1bot" path="res://core/audio/audio_settings.gd" id="2_u46yw"]
+
+[resource]
+script = ExtResource("2_u46yw")
+limit = 5
+audio_name = ""
+audio_type = 1
+audio_stream = ExtResource("1_gw214")
+volume = 5.0
+pitch_scale = 1.0
+pitch_randomness = 0.2
+max_distance_2d = 2000.0
+unit_size = 10.0
+max_distance_3d = 0.0
+reverb_tail = 0.0
+metadata/_custom_type_script = "uid://cxwuxelio1bot"

@@ -154,7 +154,9 @@ func _process(_delta: float) -> void:
 			mixer_money = str("[color=red]$", GameGlobals.total_money, "\n")
 		else:
 			mixer_money = str("$", GameGlobals.total_money, "\n")
-	vial_rich_text_label.text = str("[center]", mixer_attribute, "\n", mixer_amount, mixer_money)
+	vial_rich_text_label.text = str(
+		"[center][b]", mixer_attribute, "[/b]\n", mixer_amount, mixer_money
+	)
 
 
 func drink_juice() -> void:
