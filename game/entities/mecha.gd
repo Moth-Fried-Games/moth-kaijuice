@@ -22,6 +22,9 @@ var cost: float = 150000
 func _ready() -> void:
 	if not is_in_group("mecha"):
 		add_to_group("mecha")
+	health += GameGlobals.rng.randf_range(-(health / 2), health / 2)
+	range_damage += GameGlobals.rng.randf_range(-(range_damage / 2), range_damage / 2)
+	melee_damage += GameGlobals.rng.randf_range(-(melee_damage / 2), melee_damage / 2)
 
 
 func _process(_delta: float) -> void:
@@ -36,7 +39,7 @@ func _physics_process(delta: float) -> void:
 			entered_screen = true
 		if kill_timer != 0:
 			kill_timer = 0
-		if not dead and not kaiju.shrunk:
+		if entered_screen and not dead and not kaiju.shrunk:
 			if attack_area_2d.has_overlapping_areas():
 				if animated_sprite_2d.animation == "idle" or not animated_sprite_2d.is_playing():
 					var attack_targets: Array[Node2D] = []
@@ -46,7 +49,7 @@ func _physics_process(delta: float) -> void:
 					await attack(attack_targets)
 			else:
 				if bullet_timer.is_stopped() and not dead and not kaiju.shrunk:
-					bullet_timer.start(5)
+					bullet_timer.start(6)
 					await shoot()
 	else:
 		if entered_screen:
@@ -59,14 +62,20 @@ func _physics_process(delta: float) -> void:
 func damage(total_damage: float) -> void:
 	health -= total_damage
 	health = clampf(health, 0, INF)
+	GameGlobals.audio_manager.create_2d_audio_at_location(
+		"sound_city_mecha_damage", global_position
+	)
 	if health <= 0:
 		die()
-	animated_sprite_2d.modulate = Color(2,2,2,1)
+	animated_sprite_2d.modulate = Color(2, 2, 2, 1)
 
 
 func die() -> void:
 	if not dead:
 		dead = true
+		GameGlobals.audio_manager.create_2d_audio_at_location(
+			"sound_city_mecha_death", global_position
+		)
 		kaiju.charge(3)
 		kaiju.loot(cost)
 		attack_area_2d.queue_free()
@@ -76,13 +85,17 @@ func die() -> void:
 
 
 func shoot() -> void:
+	GameGlobals.audio_manager.create_2d_audio_at_location(
+		"sound_city_mecha_charge", global_position
+	)
 	animated_sprite_2d.play("shoot_start")
 	await animated_sprite_2d.animation_finished
+	GameGlobals.audio_manager.create_2d_audio_at_location("sound_city_mecha_shoot", global_position)
 	var kaiju_direction = kaiju.global_position
 	kaiju_direction.y = kaiju_direction.y - 100 - GameGlobals.rng.randf_range(0, 100)
 	line_2d.global_position = Vector2.ZERO
 	line_2d.clear_points()
-	line_2d.add_point(line_2d.to_local(global_position + Vector2(3,-214)))
+	line_2d.add_point(line_2d.to_local(global_position + Vector2(3, -214)))
 	line_2d.add_point(line_2d.to_local(kaiju_direction))
 	await get_tree().create_timer(0.1).timeout
 	line_2d.clear_points()
@@ -90,7 +103,6 @@ func shoot() -> void:
 	animated_sprite_2d.play("shoot_end")
 	await animated_sprite_2d.animation_finished
 	animated_sprite_2d.play("idle")
-	
 
 
 func attack(attack_targets: Array[Node2D]) -> void:

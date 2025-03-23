@@ -1,5 +1,7 @@
 extends Node2D
 
+var city_music: AudioStreamPlayer = null
+
 var building_resource: Resource = preload("res://game/entities/building.tscn")
 var soldier_resource: Resource = preload("res://game/entities/soldier.tscn")
 var tank_resource: Resource = preload("res://game/entities/tank.tscn")
@@ -33,18 +35,20 @@ var beam_animated_sprite_2d: AnimatedSprite2D = $UI/Game/BeamMarginContainer/Bea
 @onready var front_parallax_2d: Parallax2D = $Background/FrontParallax2D
 @onready var building_area_2d: Area2D = $BuildingMarker2D/BuildingArea2D
 @onready var spawn_area_2d: Area2D = $SpawnMarker2D/SpawnArea2D
+@onready var animation_player: AnimationPlayer = $AnimationPlayer
 
 var damage_pay: float = 0
 var max_health: float = 0
 var special_charge: float = 0
 var alert_level: float = 0
-var alert_base: float = 400
+var alert_base: float = 100
 var alert_min: float = 0
 var alert_max: float = 0
 var building_spawn: bool = false
 var enemy_spawn: bool = false
 var enemy_spawn_low: float = 0.5
 var enemy_spawn_high: float = 0.1
+var nuke_step: int = 0
 
 
 func _ready() -> void:
@@ -56,6 +60,7 @@ func _ready() -> void:
 	max_health = kaiju.current_health
 	GameGlobals.city_screen = true
 	UiMain.ui_transitions.toggle_transition(false)
+	city_music = GameGlobals.audio_manager.create_persistent_audio("music_city")
 
 
 func _process(delta: float) -> void:
@@ -107,6 +112,7 @@ func update_alert() -> void:
 			alert_max = alert_base * 2
 			enemy_spawn_low = 0.2
 			enemy_spawn_high = 0
+			GameGlobals.audio_manager.create_audio("sound_city_alert_level")
 		alert_led_sprite_2d_5.visible = true
 		blink_alert(alert_led_sprite_2d_4)
 		alert_led_sprite_2d_3.visible = false
@@ -118,6 +124,7 @@ func update_alert() -> void:
 			alert_max = alert_base * 4
 			enemy_spawn_low = 0.4
 			enemy_spawn_high = 0
+			GameGlobals.audio_manager.create_audio("sound_city_alert_level")
 		alert_led_sprite_2d_5.visible = true
 		alert_led_sprite_2d_4.visible = true
 		blink_alert(alert_led_sprite_2d_3)
@@ -129,6 +136,7 @@ func update_alert() -> void:
 			alert_max = alert_base * 8
 			enemy_spawn_low = 0.4
 			enemy_spawn_high = 0.2
+			GameGlobals.audio_manager.create_audio("sound_city_alert_level")
 		alert_led_sprite_2d_5.visible = true
 		alert_led_sprite_2d_4.visible = true
 		alert_led_sprite_2d_3.visible = true
@@ -140,12 +148,21 @@ func update_alert() -> void:
 			alert_max = alert_base * 16
 			enemy_spawn_low = 0.8
 			enemy_spawn_high = 0.4
+			GameGlobals.audio_manager.create_audio("sound_city_alert_level")
 		alert_led_sprite_2d_5.visible = true
 		alert_led_sprite_2d_4.visible = true
 		alert_led_sprite_2d_3.visible = true
 		alert_led_sprite_2d_2.visible = true
 		blink_alert(alert_led_sprite_2d_1)
 	elif alert_level >= alert_base:
+		if alert_max != alert_base * 32:
+			alert_min = alert_base * 16
+			alert_max = alert_base * 32
+			enemy_spawn_low = 2
+			enemy_spawn_high = 0
+			GameGlobals.audio_manager.create_audio("sound_city_alert_level")
+			if nuke_step == 0:
+				nuke_step = 1
 		alert_led_sprite_2d_5.visible = true
 		alert_led_sprite_2d_4.visible = true
 		alert_led_sprite_2d_3.visible = true
@@ -161,26 +178,58 @@ func blink_alert(alert_led: Node2D) -> void:
 
 
 func _physics_process(_delta: float) -> void:
-	if spawn_marker_2d.global_position.x != (get_viewport().size.x + 200):
-		spawn_marker_2d.global_position.x = (get_viewport().size.x + 200)
-	if building_marker_2d.global_position.x != (get_viewport().size.x + 200):
-		building_marker_2d.global_position.x = (get_viewport().size.x + 200)
-	if building_area_2d.has_overlapping_areas():
-		if building_spawn:
-			building_spawn = false
-	else:
-		if not building_spawn:
-			building_spawn = true
-		if building_timer.is_stopped():
-			building_timer.start()
-	if spawn_area_2d.has_overlapping_areas():
-		if enemy_spawn:
-			enemy_spawn = false
-	else:
-		if not enemy_spawn:
-			enemy_spawn = true
-		if spawn_timer.is_stopped():
-			spawn_timer.start()
+	if nuke_step == 0:
+		if spawn_marker_2d.global_position.x != (get_viewport().size.x + 200):
+			spawn_marker_2d.global_position.x = (get_viewport().size.x + 200)
+		if building_marker_2d.global_position.x != (get_viewport().size.x + 200):
+			building_marker_2d.global_position.x = (get_viewport().size.x + 200)
+
+		if building_area_2d.has_overlapping_areas():
+			if building_spawn:
+				building_spawn = false
+		else:
+			if not building_spawn:
+				building_spawn = true
+			if building_timer.is_stopped():
+				building_timer.start()
+
+		if spawn_area_2d.has_overlapping_areas():
+			if enemy_spawn:
+				enemy_spawn = false
+		else:
+			if not enemy_spawn:
+				enemy_spawn = true
+			if spawn_timer.is_stopped():
+				spawn_timer.start()
+
+	if nuke_step == 1:
+		nuke_step = 2
+		await get_tree().create_timer(1).timeout
+		if not kaiju.shooting and not kaiju.discharging:
+			kaiju.shooting = true
+		await get_tree().create_timer(4).timeout
+		nuke_step = 3
+
+	if nuke_step == 3:
+		nuke_step = 4
+		if is_instance_valid(city_music):
+			GameGlobals.audio_manager.fade_audio_out_and_destroy("music_city", city_music, 1)
+		GameGlobals.audio_manager.create_audio("sound_city_nuclear")
+		await get_tree().create_timer(12).timeout
+		nuke_step = 5
+
+	if nuke_step == 5:
+		nuke_step = 6
+		animation_player.play("nuke_drop")
+		await animation_player.animation_finished
+		nuke_step = 7
+
+	if nuke_step == 7:
+		nuke_step = 8
+		animation_player.play("nuke_win")
+		await animation_player.animation_finished
+		await get_tree().create_timer(4).timeout
+		back_to_title()
 
 
 func move_forward(move_speed: float) -> void:
@@ -246,10 +295,20 @@ func back_to_lab() -> void:
 	GameGlobals.total_money += int(damage_pay)
 	GameGlobals.city_screen = false
 	UiMain.ui_transitions.change_scene(GameGlobals.lab_scene)
+	if is_instance_valid(city_music):
+		GameGlobals.audio_manager.fade_audio_out_and_destroy("music_city", city_music, 1)
+
+
+func back_to_title() -> void:
+	GameGlobals.total_money += int(damage_pay)
+	GameGlobals.city_screen = false
+	UiMain.ui_transitions.change_scene(GameGlobals.title_scene)
+	if is_instance_valid(city_music):
+		GameGlobals.audio_manager.fade_audio_out_and_destroy("music_city", city_music, 1)
 
 
 func _on_spawn_timer_timeout() -> void:
-	if kaiju.walking:
+	if kaiju.walking and not nuke_step > 0:
 		if GameGlobals.rng.randf_range(0, 1) >= 0.33:
 			var spawn_type: float = GameGlobals.rng.randf_range(0, 1)
 			if spawn_type >= enemy_spawn_low:
@@ -263,11 +322,12 @@ func _on_spawn_timer_timeout() -> void:
 
 
 func _on_building_timer_timeout() -> void:
-	if kaiju.walking and building_spawn:
+	if kaiju.walking and building_spawn and not nuke_step > 0:
 		if GameGlobals.rng.randf_range(0, 1) >= 0.33:
 			spawn_building()
 
 
 func _on_beam_button_pressed() -> void:
-	if not kaiju.shooting and not kaiju.discharging:
-		kaiju.shooting = true
+	if not nuke_step > 0:
+		if not kaiju.shooting and not kaiju.discharging:
+			kaiju.shooting = true

@@ -12,7 +12,7 @@ var base_damage: float = 50
 var base_move_speed: float = 100
 var base_attack_speed: float = 1
 var base_guard_rate: float = 0.1
-var base_special_cooldown: float = 120
+var base_special_cooldown: float = 100
 
 var current_health: float = base_health
 var current_damage: float = base_damage
@@ -29,6 +29,7 @@ var grown: bool = false
 var shrunk: bool = false
 var shooting: bool = false
 var discharging: bool = false
+var walk_step: bool = false
 
 
 func _ready() -> void:
@@ -36,22 +37,71 @@ func _ready() -> void:
 		add_to_group("kaiju")
 	guard_animated_sprite_2d.modulate.a = 0
 	animated_sprite_2d.play("idle")
-	current_health = base_health + (base_health * GameGlobals.vial_data["durability"]) + (base_health * GameGlobals.vial_data["beta"]) 
-	current_damage = base_damage + (base_damage * GameGlobals.vial_data["power"]) + (base_damage * GameGlobals.vial_data["alpha"]) 
-	current_move_speed = base_move_speed + (base_move_speed * GameGlobals.vial_data["speed"]) + (base_move_speed * GameGlobals.vial_data["gamma"]) 
-	current_attack_speed = base_attack_speed + (base_attack_speed * GameGlobals.vial_data["dexterity"]) + (base_attack_speed * GameGlobals.vial_data["gamma"]) 
-	current_guard_rate = base_guard_rate + (base_guard_rate * GameGlobals.vial_data["guard"]) + (base_guard_rate * GameGlobals.vial_data["beta"]) 
-	current_special_cooldown = base_special_cooldown - (base_special_cooldown * GameGlobals.vial_data["special"]) - (base_special_cooldown * GameGlobals.vial_data["alpha"]) 
+	current_health = (
+		base_health
+		+ (base_health * GameGlobals.vial_data["durability"])
+		+ (base_health * GameGlobals.vial_data["beta"])
+	)
+	current_damage = (
+		base_damage
+		+ (base_damage * GameGlobals.vial_data["power"])
+		+ (base_damage * GameGlobals.vial_data["alpha"])
+	)
+	current_move_speed = (
+		base_move_speed
+		+ (base_move_speed * GameGlobals.vial_data["speed"])
+		+ (base_move_speed * GameGlobals.vial_data["gamma"])
+	)
+	current_attack_speed = (
+		base_attack_speed
+		+ (base_attack_speed * GameGlobals.vial_data["dexterity"])
+		+ (base_attack_speed * GameGlobals.vial_data["gamma"])
+	)
+	current_guard_rate = (
+		base_guard_rate
+		+ (base_guard_rate * GameGlobals.vial_data["guard"])
+		+ (base_guard_rate * GameGlobals.vial_data["beta"])
+	)
+	current_special_cooldown = (
+		base_special_cooldown
+		- (base_special_cooldown * GameGlobals.vial_data["special"])
+		- (base_special_cooldown * GameGlobals.vial_data["alpha"])
+	)
 	current_special_cooldown = clampf(current_special_cooldown, 0, INF)
 
 
 func _process(delta: float) -> void:
 	if guard_animated_sprite_2d.modulate.a > 0:
 		guard_animated_sprite_2d.modulate.a -= 2 * delta
+	walk_sounds()
+
+
+func walk_sounds() -> void:
+	var step: bool = false
+	if animated_sprite_2d.animation == "walk":
+		if not walk_step:
+			if animated_sprite_2d.frame == 3:
+				step = true
+				walk_step = true
+		else:
+			if animated_sprite_2d.frame == 0:
+				step = true
+				walk_step = false
+		if step:
+			GameGlobals.audio_manager.create_2d_audio_at_location(
+				"sound_city_walk", global_position
+			)
 
 
 func _physics_process(_delta: float) -> void:
-	if grown and not shrunk and not shooting and not discharging and not animation_player.is_playing():
+	if (
+		grown
+		and not shrunk
+		and not shooting
+		and not discharging
+		and not animation_player.is_playing()
+		and not game_scene.nuke_step > 1
+	):
 		if is_instance_valid(attack_area_2d):
 			if attack_area_2d.has_overlapping_areas():
 				if animated_sprite_2d.animation == "walk" or not animated_sprite_2d.is_playing():
@@ -64,28 +114,30 @@ func _physics_process(_delta: float) -> void:
 					await attack(attack_targets)
 			else:
 				walk()
-	
+
 	if grown and shooting:
 		shooting = false
 		await beam()
-		
-	
+
 	if not grown:
 		grown = true
 		await grow()
-		
+
 
 func grow() -> void:
 	animation_player.play("start")
 	await animation_player.animation_finished
 	animation_player.play("grow")
+	GameGlobals.audio_manager.create_2d_audio_at_location("sound_city_grow", global_position)
 	await animation_player.animation_finished
+
 
 func beam() -> void:
 	if walking:
 		walking = false
 	discharging = true
 	animated_sprite_2d.speed_scale = 1
+	GameGlobals.audio_manager.create_2d_audio_at_location("sound_city_special", global_position)
 	animated_sprite_2d.play("beam_start")
 	await animated_sprite_2d.animation_finished
 	game_scene.beam()
@@ -99,7 +151,7 @@ func beam() -> void:
 	await animated_sprite_2d.animation_finished
 	animated_sprite_2d.play("idle")
 	discharging = false
-	
+
 
 func walk() -> void:
 	if not walking:
@@ -133,6 +185,7 @@ func attack(attack_targets: Array[Node2D]) -> void:
 
 func guard() -> void:
 	guard_animated_sprite_2d.modulate.a = 1
+	GameGlobals.audio_manager.create_2d_audio_at_location("sound_city_guard", global_position)
 
 
 func damage(total_damage: float) -> void:
@@ -143,6 +196,10 @@ func damage(total_damage: float) -> void:
 	else:
 		current_health -= total_damage
 		current_health = clampf(current_health, 0, INF)
+		if total_damage >= 1.5:
+			GameGlobals.audio_manager.create_2d_audio_at_location(
+				"sound_city_roar", global_position
+			)
 		if current_health <= 0:
 			if not shrunk:
 				shrunk = true
@@ -150,6 +207,9 @@ func damage(total_damage: float) -> void:
 				attack_area_2d.queue_free()
 				animated_sprite_2d.play("idle")
 				animation_player.play("shrink")
+				GameGlobals.audio_manager.create_2d_audio_at_location(
+					"sound_city_shrink", global_position
+				)
 				await animation_player.animation_finished
 				game_scene.back_to_lab()
 

@@ -33,17 +33,21 @@ func _ready() -> void:
 			middle_sprite_2d.visible = false
 			big_sprite_2d.visible = false
 			health = 100
+			health += GameGlobals.rng.randf_range(-(health / 2), health / 2)
 			cost = 2500
 		2:
 			small_sprite_2d.visible = false
 			big_sprite_2d.visible = false
 			health = 150
+			health += GameGlobals.rng.randf_range(-(health / 2), health / 2)
 			cost = 7500
 		3:
 			small_sprite_2d.visible = false
 			middle_sprite_2d.visible = false
 			health = 200
+			health += GameGlobals.rng.randf_range(-(health / 2), health / 2)
 			cost = 10000
+
 
 func _process(_delta: float) -> void:
 	if small_sprite_2d.modulate != Color.WHITE:
@@ -51,7 +55,7 @@ func _process(_delta: float) -> void:
 		small_sprite_2d.modulate = Color.WHITE
 		middle_sprite_2d.modulate = Color.WHITE
 		big_sprite_2d.modulate = Color.WHITE
-	
+
 
 func _physics_process(delta: float) -> void:
 	if visible_on_screen_notifier_2d.is_on_screen():
@@ -70,18 +74,24 @@ func _physics_process(delta: float) -> void:
 func damage(total_damage: float) -> void:
 	health -= total_damage
 	health = clampf(health, 0, INF)
+	GameGlobals.audio_manager.create_2d_audio_at_location(
+		"sound_city_building_damage", global_position
+	)
 	if health <= 0:
 		die()
-	small_sprite_2d.modulate = Color(2,2,2,1)
-	middle_sprite_2d.modulate = Color(2,2,2,1)
-	big_sprite_2d.modulate = Color(2,2,2,1)
-	
+	small_sprite_2d.modulate = Color(2, 2, 2, 1)
+	middle_sprite_2d.modulate = Color(2, 2, 2, 1)
+	big_sprite_2d.modulate = Color(2, 2, 2, 1)
 
 
 func die() -> void:
 	if not dead:
 		dead = true
 		body_area_2d.queue_free()
+		GameGlobals.audio_manager.create_2d_audio_at_location(
+			"sound_city_building_death", global_position
+		)
+		GameGlobals.audio_manager.create_2d_audio_at_location("sound_city_screams", global_position)
 		match size:
 			1:
 				kaiju.charge(1)

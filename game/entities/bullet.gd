@@ -10,9 +10,12 @@ var damage: float = 1
 var dead: bool = false
 var kill_timer: float = 0
 
+
 func _ready() -> void:
 	if not is_in_group("bullet"):
 		add_to_group("bullet")
+	damage += GameGlobals.rng.randf_range(-(damage/2), (damage/2))
+
 
 func _physics_process(delta: float) -> void:
 	global_position += bullet_speed * direction * delta

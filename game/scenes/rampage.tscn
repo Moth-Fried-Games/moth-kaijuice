@@ -1,4 +1,4 @@
-[gd_scene load_steps=37 format=3 uid="uid://105nwecheuck"]
+[gd_scene load_steps=48 format=3 uid="uid://105nwecheuck"]
 
 [ext_resource type="Script" uid="uid://bpd8mhh5munwn" path="res://game/scenes/rampage.gd" id="1_ytodt"]
 [ext_resource type="FontFile" uid="uid://dpno5j5764jhf" path="res://assets/fonts/silkscreen/Silkscreen-Regular.ttf" id="2_5qys1"]
@@ -77,11 +77,239 @@ animations = [{
 
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_fmheb"]
 
+[sub_resource type="Gradient" id="Gradient_i8kr7"]
+offsets = PackedFloat32Array(0, 0.3, 0.8, 1)
+colors = PackedColorArray(1, 1, 0, 1, 1, 0.294118, 0, 1, 0.25, 0.25, 0.25, 1, 0.75, 0.75, 0.75, 0)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_5qys1"]
+gradient = SubResource("Gradient_i8kr7")
+width = 16
+height = 16
+fill = 1
+fill_from = Vector2(0.5, 0.5)
+fill_to = Vector2(0.5, 0)
+
+[sub_resource type="Curve" id="Curve_g3ybk"]
+_data = [Vector2(0, 1), 0.0, 0.0, 0, 0, Vector2(0.495146, 1), 0.0, 0.0, 0, 0, Vector2(1, 0), 0.0, 0.0, 0, 0]
+point_count = 3
+
+[sub_resource type="CurveTexture" id="CurveTexture_quovu"]
+curve = SubResource("Curve_g3ybk")
+
+[sub_resource type="Curve" id="Curve_enccm"]
+_limits = [0.0, 2.0, 0.0, 1.0]
+_data = [Vector2(0, 1), 0.0, 0.0, 0, 0, Vector2(1, 2), 0.0, 0.0, 0, 0]
+point_count = 2
+
+[sub_resource type="CurveTexture" id="CurveTexture_vgwjd"]
+curve = SubResource("Curve_enccm")
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_2u5t1"]
+particle_flag_disable_z = true
+emission_shape = 3
+emission_box_extents = Vector3(1280, 1, 1)
+direction = Vector3(0, -1, 0)
+initial_velocity_min = 600.0
+initial_velocity_max = 600.0
+angular_velocity_min = -720.0
+angular_velocity_max = 720.0
+gravity = Vector3(0, 0, 0)
+scale_min = 5.33
+scale_max = 5.33
+scale_curve = SubResource("CurveTexture_vgwjd")
+alpha_curve = SubResource("CurveTexture_quovu")
+
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_xx8o7"]
 size = Vector2(208, 80)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_36rtc"]
 size = Vector2(400, 176)
+
+[sub_resource type="Animation" id="Animation_5qys1"]
+resource_name = "nuke"
+length = 3.0
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("UI/NukeColorRect:modulate")
+tracks/0/interp = 2
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 3),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Color(1, 1, 1, 0), Color(1, 1, 1, 1)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("UI/Game:modulate")
+tracks/1/interp = 2
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 1),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Color(1, 1, 1, 1), Color(1, 1, 1, 0)]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("Kaiju:modulate")
+tracks/2/interp = 2
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0, 1.5),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Color(1, 1, 1, 1), Color(0, 0, 0, 1)]
+}
+
+[sub_resource type="Animation" id="Animation_g3ybk"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("UI/Game:modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(1, 1, 1, 1)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("UI/NukeColorRect:modulate")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(1, 1, 1, 0)]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("Kaiju:modulate")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(1, 1, 1, 1)]
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("Background:visible")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [true]
+}
+tracks/4/type = "value"
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/path = NodePath("GPUParticles2D:emitting")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [false]
+}
+tracks/5/type = "value"
+tracks/5/imported = false
+tracks/5/enabled = true
+tracks/5/path = NodePath("Spawns:visible")
+tracks/5/interp = 1
+tracks/5/loop_wrap = true
+tracks/5/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [true]
+}
+
+[sub_resource type="Animation" id="Animation_p8l0g"]
+resource_name = "nuke_win"
+length = 4.0
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("UI/NukeColorRect:modulate")
+tracks/0/interp = 2
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 1, 4),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [Color(1, 1, 1, 1), Color(1, 1, 1, 1), Color(1, 1, 1, 0)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Kaiju:modulate")
+tracks/1/interp = 2
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(1, 1, 1, 1)]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("Background:visible")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [false]
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("Spawns:visible")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [false]
+}
+tracks/4/type = "value"
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/path = NodePath("GPUParticles2D:emitting")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [true]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_enccm"]
+_data = {
+&"RESET": SubResource("Animation_g3ybk"),
+&"nuke_drop": SubResource("Animation_5qys1"),
+&"nuke_win": SubResource("Animation_p8l0g")
+}
 
 [node name="Rampage" type="Node2D"]
 script = ExtResource("1_ytodt")
@@ -245,6 +473,15 @@ texture = ExtResource("12_p8l0g")
 centered = false
 offset = Vector2(-31, 0)
 
+[node name="NukeColorRect" type="ColorRect" parent="UI"]
+modulate = Color(1, 1, 1, 0)
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+
 [node name="Results" type="Control" parent="UI"]
 visible = false
 layout_mode = 3
@@ -253,6 +490,8 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+
+[node name="Nuke" type="CanvasLayer" parent="."]
 
 [node name="Background" type="Node2D" parent="."]
 z_index = -2
@@ -292,6 +531,15 @@ centered = false
 [node name="Spawns" type="Node2D" parent="."]
 y_sort_enabled = true
 
+[node name="GPUParticles2D" type="GPUParticles2D" parent="."]
+position = Vector2(640, 800)
+emitting = false
+amount = 1000
+texture = SubResource("GradientTexture2D_5qys1")
+lifetime = 2.0
+fixed_fps = 0
+process_material = SubResource("ParticleProcessMaterial_2u5t1")
+
 [node name="Kaiju" parent="." instance=ExtResource("2_23bft")]
 position = Vector2(232, 684)
 
@@ -329,3 +577,8 @@ limit_left = 0
 
 [node name="BlinkTimer" type="Timer" parent="."]
 one_shot = true
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+libraries = {
+&"": SubResource("AnimationLibrary_enccm")
+}

@@ -10,6 +10,7 @@ var audio_manager: AudioManager = AudioManager.new()
 var bullet_resource: Resource = preload("res://game/entities/bullet.tscn")
 var big_bullet_resource: Resource = preload("res://game/entities/big_bullet.tscn")
 
+var title_scene: String = "res://game/scenes/menu.tscn"
 var lab_scene: String = "res://game/scenes/lab.tscn"
 var city_scene: String = "res://game/scenes/rampage.tscn"
 

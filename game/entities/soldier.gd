@@ -12,6 +12,7 @@ var dead: bool = false
 var kaiju: Node2D = null
 var cost: float = 1000
 
+
 func _ready() -> void:
 	if not is_in_group("soldier"):
 		add_to_group("soldier")
@@ -24,8 +25,8 @@ func _physics_process(delta: float) -> void:
 			entered_screen = true
 		if kill_timer != 0:
 			kill_timer = 0
-		if bullet_timer.is_stopped() and not dead and not kaiju.shrunk:
-			bullet_timer.start(GameGlobals.rng.randf_range(0.5, 2))
+		if entered_screen and bullet_timer.is_stopped() and not dead and not kaiju.shrunk:
+			bullet_timer.start(GameGlobals.rng.randf_range(1, 2))
 			shoot()
 	else:
 		if entered_screen:
@@ -56,6 +57,9 @@ func die() -> void:
 
 
 func shoot() -> void:
+	GameGlobals.audio_manager.create_2d_audio_at_location(
+		"sound_city_soldier_shoot", global_position
+	)
 	var bullet_instance = GameGlobals.bullet_resource.instantiate()
 	var kaiju_direction = kaiju.global_position
 	kaiju_direction.y = kaiju_direction.y - 100 - GameGlobals.rng.randf_range(0, 100)

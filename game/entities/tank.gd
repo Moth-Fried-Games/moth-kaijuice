@@ -14,14 +14,18 @@ var dead: bool = false
 var kaiju: Node2D = null
 var cost: float = 5000
 
+
 func _ready() -> void:
 	if not is_in_group("tank"):
 		add_to_group("tank")
+	health += GameGlobals.rng.randf_range(-(health / 2), health / 2)
+
 
 func _process(_delta: float) -> void:
 	if sprite_2d.modulate != Color.WHITE:
 		await get_tree().create_timer(0.05).timeout
 		sprite_2d.modulate = Color.WHITE
+
 
 func _physics_process(delta: float) -> void:
 	if visible_on_screen_notifier_2d.is_on_screen():
@@ -29,8 +33,8 @@ func _physics_process(delta: float) -> void:
 			entered_screen = true
 		if kill_timer != 0:
 			kill_timer = 0
-		if bullet_timer.is_stopped() and not dead and not kaiju.shrunk:
-			bullet_timer.start(GameGlobals.rng.randf_range(2, 3))
+		if entered_screen and bullet_timer.is_stopped() and not dead and not kaiju.shrunk:
+			bullet_timer.start(GameGlobals.rng.randf_range(2, 4))
 			shoot()
 	else:
 		if entered_screen:
@@ -42,15 +46,21 @@ func _physics_process(delta: float) -> void:
 
 func damage(total_damage: float) -> void:
 	health -= total_damage
-	health = clampf(health,0,INF)
+	health = clampf(health, 0, INF)
+	GameGlobals.audio_manager.create_2d_audio_at_location(
+		"sound_city_mecha_damage", global_position
+	)
 	if health <= 0:
 		die()
-	sprite_2d.modulate = Color(2,2,2,1)
+	sprite_2d.modulate = Color(2, 2, 2, 1)
 
 
 func die() -> void:
 	if not dead:
 		dead = true
+		GameGlobals.audio_manager.create_2d_audio_at_location(
+			"sound_city_tank_death", global_position
+		)
 		kaiju.charge(2)
 		kaiju.loot(cost)
 		body_area_2d.queue_free()
@@ -59,10 +69,11 @@ func die() -> void:
 
 
 func shoot() -> void:
+	GameGlobals.audio_manager.create_2d_audio_at_location("sound_city_tank_shoot", global_position)
 	var bullet_instance = GameGlobals.big_bullet_resource.instantiate()
 	var kaiju_direction = kaiju.global_position
 	kaiju_direction.y = kaiju_direction.y - 100 - GameGlobals.rng.randf_range(0, 100)
 	bullet_instance.direction = bullet_marker_2d.global_position.direction_to(kaiju_direction)
 	bullet_instance.global_position = bullet_marker_2d.global_position
-	bullet_instance.damage = 4
+	bullet_instance.damage = 4 + GameGlobals.rng.randf_range(-2, 2)
 	get_parent().add_child(bullet_instance)
