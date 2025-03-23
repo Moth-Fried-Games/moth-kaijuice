@@ -7,6 +7,8 @@ The Wildcard "One-Handed" is used here by using only mouse controls.
 
 The Wildcard "Feeling Chemistry" is used here by combining chemicals to improve your Kaiju. 
 
+Ovani Sound provided Audio cannot be included in the repository due to licensing and will only be included in published builds.
+
 Builds on Itch.io https://mothfriedgames.itch.io/moth-kaijuice
 
 ## Credits 
