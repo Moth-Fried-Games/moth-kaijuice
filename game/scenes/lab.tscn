@@ -1,4 +1,4 @@
-[gd_scene load_steps=35 format=3 uid="uid://nwhhnvw1i5em"]
+[gd_scene load_steps=36 format=3 uid="uid://nwhhnvw1i5em"]
 
 [ext_resource type="Script" uid="uid://bxbnqdj7t7vp4" path="res://game/scenes/lab.gd" id="1_kxpmb"]
 [ext_resource type="Texture2D" uid="uid://cp7fwr7k2u7qu" path="res://assets/textures/lab/chemistry/mothkaiju_ui_lab_chemistry.png" id="2_6gpec"]
@@ -8,6 +8,7 @@
 [ext_resource type="Texture2D" uid="uid://brbx53mbij6aa" path="res://assets/textures/lab/button/mothkaiju_ui_lab_button_off.png" id="4_u87m7"]
 [ext_resource type="Texture2D" uid="uid://bxu4650y5s1sn" path="res://assets/textures/lab/button/mothkaiju_ui_lab_button_on.png" id="5_aq2s7"]
 [ext_resource type="Texture2D" uid="uid://do4dbcjdo4778" path="res://assets/textures/lab/background/mothkaiju_bg_lab_0.png" id="6_lof0w"]
+[ext_resource type="FontFile" uid="uid://b5itwd6v2e2lj" path="res://assets/fonts/silkscreen/Silkscreen-Bold.ttf" id="8_y6qd5"]
 [ext_resource type="Texture2D" uid="uid://bco1t3fhgejx7" path="res://assets/textures/lab/ui/mothkaiju_ui_lab_panel.png" id="9_lof0w"]
 [ext_resource type="FontFile" uid="uid://dpno5j5764jhf" path="res://assets/fonts/silkscreen/Silkscreen-Regular.ttf" id="10_y6qd5"]
 
@@ -533,10 +534,13 @@ offset_bottom = 160.0
 grow_horizontal = 2
 grow_vertical = 2
 theme_override_colors/default_color = Color(0.78, 0.827, 0.863, 0.5)
+theme_override_constants/line_separation = 5
 theme_override_fonts/normal_font = ExtResource("10_y6qd5")
-theme_override_font_sizes/normal_font_size = 40
+theme_override_fonts/bold_font = ExtResource("8_y6qd5")
+theme_override_font_sizes/normal_font_size = 30
+theme_override_font_sizes/bold_font_size = 40
 bbcode_enabled = true
-text = "[center]Attribute
+text = "[center][b]Attribute[/b]
 0 ml
 $0"
 fit_content = true
@@ -598,10 +602,10 @@ flat = true
 [node name="StartTooltipControl" type="Control" parent="CanvasLayer/Control/ButtonControl/StartButton"]
 layout_mode = 1
 anchors_preset = 0
-offset_left = 40.0
-offset_top = 40.0
-offset_right = 40.0
-offset_bottom = 40.0
+offset_left = 91.0
+offset_top = 41.667
+offset_right = 91.0
+offset_bottom = 41.667
 
 [node name="NinePatchRect" type="NinePatchRect" parent="CanvasLayer/Control/ButtonControl/StartButton/StartTooltipControl"]
 layout_mode = 1
@@ -610,10 +614,10 @@ anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
-offset_left = 204.0
-offset_top = -17.0
-offset_right = 248.0
-offset_bottom = 2.0
+offset_left = -118.0
+offset_top = -161.0
+offset_right = -74.0
+offset_bottom = -142.0
 grow_horizontal = 2
 grow_vertical = 2
 scale = Vector2(5.33333, 5.33333)
@@ -631,13 +635,13 @@ layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
-offset_left = 208.0
-offset_top = -23.0
-offset_right = 440.0
-offset_bottom = 80.0
+offset_left = -114.0
+offset_top = -167.0
+offset_right = 118.0
+offset_bottom = -64.0
 grow_horizontal = 2
 grow_vertical = 2
-theme_override_colors/default_color = Color(0.78, 0.827, 0.863, 0.5)
+theme_override_colors/default_color = Color(0.976471, 0.882353, 0.584314, 1)
 theme_override_fonts/normal_font = ExtResource("10_y6qd5")
 theme_override_font_sizes/normal_font_size = 80
 bbcode_enabled = true
