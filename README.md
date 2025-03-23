@@ -13,10 +13,13 @@ Builds on Itch.io https://mothfriedgames.itch.io/moth-kaijuice
 
 ## Credits 
 ### Art and Animations 
-- [Atlas](https://explorermoo.carrd.co/) 
+- [Atlas](https://explorermoo.com/) 
   
 ### Programming 
 - [Myr the Moth](https://myrthemoth.neocities.org/) 
+
+### Game Design
+- [Myr the Moth](https://myrthemoth.neocities.org/) and [Atlas](https://explorermoo.com/) 
 
 ### Audio 
 - [Music and SFX by Ovani Sound](https://ovanisound.com/) 
